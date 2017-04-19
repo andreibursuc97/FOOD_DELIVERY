@@ -10,11 +10,19 @@ import java.sql.*;
  */
 public class ProdusDAO {
 
-    private final static String findStatementString = "SELECT * FROM produs where id=?";
-    private static final String insertStatementString = "insert into produs(descriere,cantitate,pret)"+" VALUES (?,?,?)";
-    private static final String updateStatementString = "update produs"+" set descriere=?,cantitate=?,pret=? where id=?";
-    private static final String deleteStatementString = "delete from produs"+" where id=?";
-    private static final String showAllStatementString = "select * from produs";
+    private final static String findStatementString;
+    private static final String insertStatementString;
+    private static final String updateStatementString;
+    private static final String deleteStatementStringProdus;
+   // private static final String showAllStatementString;
+
+    static{
+        findStatementString = "SELECT * FROM produs where id=?";
+         insertStatementString = "insert into produs(descriere,cantitate,pret)"+" VALUES (?,?,?)";
+        updateStatementString = "update produs"+" set descriere=?,cantitate=?,pret=? where id=?";
+        deleteStatementStringProdus = "delete from produs"+" where id=?";
+        //showAllStatementString = "select * from produs";
+    }
 
     public static Produs findById(int produsId){
         Produs toReturn=null;
@@ -105,25 +113,26 @@ public class ProdusDAO {
 
     }
 
-    public static void delete(Produs produs){
+    public static void deleteProdus(Produs produs){
 
         Connection dbConnection= ConnectionFactory.getConnection();
-        PreparedStatement deleteStatement=null;
+        PreparedStatement deleteStatementProdus=null;
         // int insertedId=-1;
 
 
         try {
-            deleteStatement=dbConnection.prepareStatement(deleteStatementString);
+            deleteStatementProdus=dbConnection.prepareStatement(deleteStatementStringProdus);
 
-            deleteStatement.setInt(1,produs.getId());
+            deleteStatementProdus.setInt(1,produs.getId());
 
-            deleteStatement.executeUpdate();
+            deleteStatementProdus.executeUpdate();
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
+
         }finally {
-            ConnectionFactory.close(deleteStatement);
+            ConnectionFactory.close(deleteStatementProdus);
             ConnectionFactory.close(dbConnection);
         }
 

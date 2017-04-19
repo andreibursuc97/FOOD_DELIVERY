@@ -9,7 +9,8 @@ public class Client {
     private String adresa;
     private String email;
     private int varsta;
-
+    private String parola;
+    private boolean logat;
 
 
 
@@ -17,19 +18,23 @@ public class Client {
     {}
 
 
-    public Client(String nume, String adresa, String email, int varsta) {
+    public Client(String nume, String adresa, String email, int varsta,String parola) {
         this.nume = nume;
         this.adresa = adresa;
         this.email = email;
         this.varsta = varsta;
+        this.parola=parola;
+        this.logat=false;
     }
 
-    public Client(int id, String nume, String adresa, String email, int varsta) {
+    public Client(int id, String nume, String adresa, String email, int varsta,String parola) {
         this.id = id;
         this.nume = nume;
         this.adresa = adresa;
         this.email = email;
         this.varsta = varsta;
+        this.parola=parola;
+        this.logat=false;
     }
 
     public void setId(int id)
@@ -56,4 +61,15 @@ public class Client {
         return varsta;
     }
 
+    public String getParola() {
+        return parola;
+    }
+
+    public boolean isLogat() {
+        return logat;
+    }
+
+    public void setLogat(boolean logat) {
+        this.logat = logat;
+    }
 }

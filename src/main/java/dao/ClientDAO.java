@@ -7,14 +7,26 @@ import java.sql.*;
 
 /**
  * Created by Andrei on 18/04/2017.
+ * clasa lcient
  */
 public class ClientDAO {
 
-    private final static String findStatementString = "SELECT * FROM clienti where id=?";
-    private static final String insertStatementString = "insert into clienti(nume,adresa,email,varsta)"+" VALUES (?,?,?,?)";
-    private static final String updateStatementString = "update clienti"+" set nume=?,adresa=?,email=?,varsta=? where id=?";
-    private static final String deleteStatementString = "delete from clienti"+" where id=?";
-    private static final String showAllStatementString = "select * from clienti";
+    private final static String findStatementString;
+    private static final String insertStatementString;
+    private static final String updateStatementString;
+    private static final String deleteStatementString;
+
+    static {
+        findStatementString = "SELECT * FROM clienti where id=?";
+        insertStatementString = "insert into clienti(nume,adresa,email,varsta,parola,logat)"+" VALUES (?,?,?,?,?,?)";
+        updateStatementString = "update clienti"+" set nume=?,adresa=?,email=?,varsta=?,parola=? where id=?";
+        deleteStatementString = "delete from clienti"+" where id=?";
+    }
+
+    //private static final String insertStatementString = "insert into clienti(nume,adresa,email,varsta,parola,logat)"+" VALUES (?,?,?,?,?,?)";
+   // private static final String updateStatementString = "update clienti"+" set nume=?,adresa=?,email=?,varsta=?,parola=? where id=?";
+    //private static final String deleteStatementString = "delete from clienti"+" where id=?";
+   // private static final String showAllStatementString = "select * from clienti";
 
     public static Client findById(int clientId){
         Client toReturn=null;
@@ -32,7 +44,8 @@ public class ClientDAO {
             String adresa=rs.getString("adresa");
             String email=rs.getString("email");
             int varsta=rs.getInt("varsta");
-            toReturn=new Client(clientId,nume,adresa,email,varsta);
+            String parola=rs.getString("parola");
+            toReturn=new Client(clientId,nume,adresa,email,varsta,parola);
 
 
         } catch (SQLException e) {
@@ -61,6 +74,8 @@ public class ClientDAO {
             insertStatement.setString(2,client.getAdresa());
             insertStatement.setString(3,client.getEmail());
             insertStatement.setInt(4,client.getVarsta());
+            insertStatement.setString(5,client.getParola());
+            insertStatement.setBoolean(6,client.isLogat());
 
             insertStatement.executeUpdate();
 
@@ -93,7 +108,8 @@ public class ClientDAO {
             updateStatement.setString(2,client.getAdresa());
             updateStatement.setString(3,client.getEmail());
             updateStatement.setInt(4,client.getVarsta());
-            updateStatement.setInt(5,client.getId());
+            updateStatement.setInt(6,client.getId());
+            updateStatement.setString(5,client.getParola());
             updateStatement.executeUpdate();
 
 
@@ -133,7 +149,7 @@ public class ClientDAO {
 
     }
 
-    public static void showAll()
+    /*public static void showAll()
     {
         Connection dbConnection= ConnectionFactory.getConnection();
         PreparedStatement showAllStatement=null;
@@ -155,5 +171,5 @@ public class ClientDAO {
             ConnectionFactory.close(showAllStatement);
             ConnectionFactory.close(dbConnection);
         }
-    }
+    }*/
 }

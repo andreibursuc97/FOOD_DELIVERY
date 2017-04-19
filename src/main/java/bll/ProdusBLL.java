@@ -1,6 +1,7 @@
 package bll;
 
 import bll.validators.CantitateValidator;
+import bll.validators.PretValidator;
 import bll.validators.Validator;
 import dao.ProdusDAO;
 import model.Produs;
@@ -18,6 +19,7 @@ public class ProdusBLL {
     public ProdusBLL() {
         validators = new ArrayList<Validator<Produs>>();
         validators.add(new CantitateValidator());
+        validators.add(new PretValidator());
     }
 
     public Produs findProdusById(int id) {
@@ -48,7 +50,7 @@ public class ProdusBLL {
         for (Validator<Produs> v : validators) {
             v.validate(produs);
         }
-        ProdusDAO.delete(produs);
+        ProdusDAO.deleteProdus(produs);
     }
 
 }
