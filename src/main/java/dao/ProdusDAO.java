@@ -38,8 +38,8 @@ public class ProdusDAO {
             rs.next();
             String descriere=rs.getString("descriere");
             int cantitate=rs.getInt("cantitate");
-            int pret=rs.getInt("pret");
-            toReturn=new Produs(produsId,descriere,cantitate,pret);
+            float pret=rs.getFloat("pret");
+            toReturn=new Produs(produsId,descriere,pret,cantitate);
 
 
         } catch (SQLException e) {
@@ -67,6 +67,7 @@ public class ProdusDAO {
             insertStatement.setString(1,produs.getDescriere());
             insertStatement.setInt(2,produs.getCantitate());
             insertStatement.setFloat(3,produs.getPret());
+
 
             insertStatement.executeUpdate();
 
@@ -98,6 +99,7 @@ public class ProdusDAO {
             updateStatement.setString(1,produs.getDescriere());
             updateStatement.setInt(2,produs.getCantitate());
             updateStatement.setFloat(3,produs.getPret());
+            updateStatement.setInt(4,produs.getId());
 
             updateStatement.executeUpdate();
 

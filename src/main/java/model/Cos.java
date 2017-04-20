@@ -6,7 +6,7 @@ package model;
 public class Cos {
 
     private int id;
-    private int pret_total;
+    private float pret_total;
     private int client_id;
     private boolean comanda_finalizata;
 
@@ -21,7 +21,7 @@ public class Cos {
         return id;
     }
 
-    public int getPret_total() {
+    public float getPret_total() {
         return pret_total;
     }
 

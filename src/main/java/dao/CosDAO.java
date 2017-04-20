@@ -1,7 +1,9 @@
 package dao;
 
+import bll.ComandaBLL;
 import connection.ConnectionFactory;
 import model.Cos;
+import model.Produs;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -15,11 +17,18 @@ import java.util.Date;
 public class CosDAO {
 
     private static final String insertStatementString;
+    private static final String adaugaInCosString;
+    private static final String getIdCosString;
+    private static final String finalizareComandaString;
+
     static {
-        insertStatementString="insert into cos(client_id,data_creare)" + " VALUES (?,?)";
+        insertStatementString="insert into cos(pret_total,client_id,data_creare,comanda_finalizata)" + " VALUES (0,(select id from clienti where logat=true),?,false)";
+        adaugaInCosString="Update cos set pret_total=pret_total+? where comanda_finalizata=false";
+        getIdCosString="select Id from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
+        finalizareComandaString="update cos set comanda_finalizata=true where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
     }
 
-    public int insert(Cos cos)
+    public static int insert(Cos cos)
     {
         Connection dbConnection= ConnectionFactory.getConnection();
         PreparedStatement insertStatement=null;
@@ -27,15 +36,14 @@ public class CosDAO {
 
         try{
             insertStatement=dbConnection.prepareStatement(insertStatementString, Statement.RETURN_GENERATED_KEYS);
-            insertStatement.setInt(1,cos.getClient_id());
 
-            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+            DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
             //String inputText = "2012-11-17T00:00:00-05:00";
             Date date = new Date();
 
-            insertStatement.setString(2,outputFormat.format(date));
+            insertStatement.setString(1,outputFormat.format(date));
 
             insertStatement.executeUpdate();
 
@@ -55,6 +63,45 @@ public class CosDAO {
         return insertedId;
     }
 
+    public static void adaugaInCos(int produsId,int cantitate)
+    {
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement adaugaInCosStatement=null;
+        PreparedStatement getIdCosStatement=null;
+        ResultSet rs=null;
 
+        try{
+            adaugaInCosStatement=dbConnection.prepareStatement(adaugaInCosString);
+            getIdCosStatement=dbConnection.prepareStatement(getIdCosString);
+            Produs produs=ProdusDAO.findById(produsId);
+            float pret=produs.getPret();
+            rs=getIdCosStatement.executeQuery();
+            if(rs.next())
+            {   ComandaBLL comandaBLL=new ComandaBLL();
+                comandaBLL.insert(produsId,cantitate,rs.getInt("id"));}
+            else throw new IllegalArgumentException("Nu exista un cos gol creat!");
+
+            adaugaInCosStatement.setFloat(1,pret*cantitate);
+            adaugaInCosStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void finalizareComanda()
+    {
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement finalizareComandaStatement=null;
+        ResultSet rs=null;
+        try{
+            finalizareComandaStatement=dbConnection.prepareStatement(finalizareComandaString);
+            finalizareComandaStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -32,4 +32,8 @@ public class Produs {
     public int getCantitate() {
         return cantitate;
     }
+
+    public void setCantitate(int cantitate) {
+        this.cantitate = cantitate;
+    }
 }

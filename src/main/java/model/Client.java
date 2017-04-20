@@ -5,6 +5,12 @@ package model;
  */
 public class Client {
     private int id;
+
+    public String getUsername() {
+        return username;
+    }
+
+    private String username;
     private String nume;
     private String adresa;
     private String email;
@@ -15,10 +21,16 @@ public class Client {
 
 
     public Client()
-    {}
+    {
+        //this.username="username";
+        //this.parola="parola;
+        this.email="username@mail.com";
+        this.varsta=18;
+    }
 
 
-    public Client(String nume, String adresa, String email, int varsta,String parola) {
+    public Client(String username,String nume, String adresa, String email, int varsta,String parola) {
+        this.username=username;
         this.nume = nume;
         this.adresa = adresa;
         this.email = email;
@@ -27,14 +39,23 @@ public class Client {
         this.logat=false;
     }
 
-    public Client(int id, String nume, String adresa, String email, int varsta,String parola) {
+    public Client(int id,String username, String nume, String adresa, String email, int varsta,String parola) {
         this.id = id;
+        this.username=username;
         this.nume = nume;
         this.adresa = adresa;
         this.email = email;
         this.varsta = varsta;
         this.parola=parola;
         this.logat=false;
+    }
+
+    public Client(String username,String parola)
+    {
+        this.username=username;
+        this.parola=parola;
+        this.email="username@mail.com";
+        this.varsta=18;
     }
 
     public void setId(int id)

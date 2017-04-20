@@ -1,11 +1,10 @@
 package bll;
 
-import bll.validators.AgeValidator;
-import bll.validators.EmailValidator;
-import bll.validators.Validator;
+import bll.validators.*;
 import dao.ClientDAO;
 import model.Client;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,6 +19,7 @@ public class ClientBLL {
         validators = new ArrayList<Validator<Client>>();
         validators.add(new EmailValidator());
         validators.add(new AgeValidator());
+
     }
 
     public Client findClientById(int id) {
@@ -31,6 +31,7 @@ public class ClientBLL {
     }
 
     public int insert(Client client) {
+        validators.add(new UsernameValidator());
         for (Validator<Client> v : validators) {
             v.validate(client);
         }
@@ -49,6 +50,36 @@ public class ClientBLL {
         for(Validator<Client> t:validators)
             t.validate(client);
         ClientDAO.delete(client);
+    }
+
+    public void logare(String username,String parola)
+    {
+        validators.add(new DejaLogatValidator());
+        validators.add(new ParolaValidator());
+        validators.add(new ExistaUsernameValidator());
+
+        Client client=new Client(username,parola);
+
+        for(Validator<Client> t:validators)
+            t.validate(client);
+
+        ClientDAO.logare(username,parola);
+
+    }
+
+    public void delogare()
+    {
+        try {
+            validators.add(new DejaLogatValidator());
+            Client client = new Client();
+            for (Validator<Client> t : validators)
+                t.validate(client);
+
+            JOptionPane.showMessageDialog(null,"Nu exista nici un client logat");
+        }catch (IllegalArgumentException e)
+        {
+            ClientDAO.delogare();
+        }
     }
 
 }

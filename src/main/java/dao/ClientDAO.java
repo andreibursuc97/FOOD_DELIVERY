@@ -15,18 +15,21 @@ public class ClientDAO {
     private static final String insertStatementString;
     private static final String updateStatementString;
     private static final String deleteStatementString;
+    private static final String logareString;
+    private static final String delogareString;
+
+    //private static final String logareStatementString;
 
     static {
         findStatementString = "SELECT * FROM clienti where id=?";
-        insertStatementString = "insert into clienti(nume,adresa,email,varsta,parola,logat)"+" VALUES (?,?,?,?,?,?)";
+        insertStatementString = "insert into clienti(username,nume,adresa,email,varsta,parola)"+" VALUES (?,?,?,?,?,?)";
         updateStatementString = "update clienti"+" set nume=?,adresa=?,email=?,varsta=?,parola=? where id=?";
         deleteStatementString = "delete from clienti"+" where id=?";
+        logareString="update clienti set logat=true where username=?";
+        delogareString="update clienti set logat=false where logat=true";
     }
 
-    //private static final String insertStatementString = "insert into clienti(nume,adresa,email,varsta,parola,logat)"+" VALUES (?,?,?,?,?,?)";
-   // private static final String updateStatementString = "update clienti"+" set nume=?,adresa=?,email=?,varsta=?,parola=? where id=?";
-    //private static final String deleteStatementString = "delete from clienti"+" where id=?";
-   // private static final String showAllStatementString = "select * from clienti";
+
 
     public static Client findById(int clientId){
         Client toReturn=null;
@@ -40,12 +43,13 @@ public class ClientDAO {
             findStatement.setInt(1,clientId);
             rs=findStatement.executeQuery();
             rs.next();
+            String username=rs.getString("username");
             String nume=rs.getString("nume");
             String adresa=rs.getString("adresa");
             String email=rs.getString("email");
             int varsta=rs.getInt("varsta");
             String parola=rs.getString("parola");
-            toReturn=new Client(clientId,nume,adresa,email,varsta,parola);
+            toReturn=new Client(clientId,username,nume,adresa,email,varsta,parola);
 
 
         } catch (SQLException e) {
@@ -70,12 +74,12 @@ public class ClientDAO {
         try {
             insertStatement=dbConnection.prepareStatement(insertStatementString, Statement.RETURN_GENERATED_KEYS);
 
-            insertStatement.setString(1,client.getNume());
-            insertStatement.setString(2,client.getAdresa());
-            insertStatement.setString(3,client.getEmail());
-            insertStatement.setInt(4,client.getVarsta());
-            insertStatement.setString(5,client.getParola());
-            insertStatement.setBoolean(6,client.isLogat());
+            insertStatement.setString(1,client.getUsername());
+            insertStatement.setString(2,client.getNume());
+            insertStatement.setString(3,client.getAdresa());
+            insertStatement.setString(4,client.getEmail());
+            insertStatement.setInt(5,client.getVarsta());
+            insertStatement.setString(6,client.getParola());
 
             insertStatement.executeUpdate();
 
@@ -146,6 +150,50 @@ public class ClientDAO {
             ConnectionFactory.close(dbConnection);
         }
 
+
+    }
+
+
+    public static void logare(String username,String parola){
+
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement logareStatement=null;
+        try{
+            logareStatement=dbConnection.prepareStatement(logareString);
+
+            logareStatement.setString(1,username);
+
+            logareStatement.executeUpdate();
+
+
+        }catch(SQLException e)
+        {e.printStackTrace();
+        }finally {
+            ConnectionFactory.close(logareStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+
+    }
+
+    public static void delogare(){
+
+        Connection dbConnection= ConnectionFactory.getConnection();
+
+        PreparedStatement delogareStatement=null;
+        try{
+
+            delogareStatement=dbConnection.prepareStatement(delogareString);
+            //delogareStatement.setString(1,username);
+
+            delogareStatement.executeUpdate();
+
+
+        }catch(SQLException e)
+        {e.printStackTrace();
+        }finally {
+            ConnectionFactory.close(delogareStatement);
+            ConnectionFactory.close(dbConnection);
+        }
 
     }
 
