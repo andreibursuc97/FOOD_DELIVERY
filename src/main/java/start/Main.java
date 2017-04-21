@@ -1,8 +1,6 @@
 package start;
 
-import presentation.Controller;
-import presentation.Logare;
-import presentation.Meniu;
+import presentation.*;
 
 /**
  * Created by Andrei on 18/04/2017.
@@ -34,9 +32,15 @@ public class Main {
             //cosBLL.insert()*/
             //Meniu meniu=new Meniu();
             //meniu.setVisible(true);
+        ListaProduse listaProduse=new ListaProduse();
         Logare logare=new Logare();
         Meniu meniu=new Meniu();
-        Controller controller=new Controller(logare,meniu);
+        DateClient dateClient=new DateClient();
+
+        //listaProduse.setVisible(true);
+        //dateClient.setVisible(true);
+        Controller controller=new Controller(logare,meniu,dateClient,listaProduse);
+
 
 
     }

@@ -67,13 +67,13 @@ public class Logare extends JFrame {
         panelPrincipal.add(parolaField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 40), 0, false));
         final JLabel label1 = new JLabel();
         label1.setAlignmentX(0.5f);
-        label1.setFont(new Font("Comic Sans MS", label1.getFont().getStyle(), 18));
+        label1.setFont(new Font("Comic Sans MS", label1.getFont().getStyle(), 16));
         label1.setHorizontalTextPosition(10);
         label1.setText("Parola");
         panelPrincipal.add(label1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, 20), new Dimension(80, 20), new Dimension(200, 20), 0, false));
         final JLabel label2 = new JLabel();
         label2.setAlignmentX(0.5f);
-        label2.setFont(new Font("Comic Sans MS", label2.getFont().getStyle(), 18));
+        label2.setFont(new Font("Comic Sans MS", label2.getFont().getStyle(), 16));
         label2.setHorizontalTextPosition(10);
         label2.setText("Username");
         panelPrincipal.add(label2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, 20), new Dimension(90, 20), new Dimension(200, 20), 0, false));

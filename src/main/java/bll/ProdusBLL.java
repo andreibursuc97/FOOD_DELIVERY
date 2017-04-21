@@ -53,5 +53,10 @@ public class ProdusBLL {
         ProdusDAO.deleteProdus(produs);
     }
 
+    public ArrayList<String[]> afiseazaProduse()
+    {
+        return ProdusDAO.afiseazaProduse();
+    }
+
 }
 

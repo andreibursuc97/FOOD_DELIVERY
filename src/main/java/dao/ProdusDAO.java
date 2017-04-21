@@ -4,6 +4,7 @@ import connection.ConnectionFactory;
 import model.Produs;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by Andrei on 18/04/2017.
@@ -14,6 +15,7 @@ public class ProdusDAO {
     private static final String insertStatementString;
     private static final String updateStatementString;
     private static final String deleteStatementStringProdus;
+    private static final String listaProduseString;
    // private static final String showAllStatementString;
 
     static{
@@ -21,6 +23,7 @@ public class ProdusDAO {
          insertStatementString = "insert into produs(descriere,cantitate,pret)"+" VALUES (?,?,?)";
         updateStatementString = "update produs"+" set descriere=?,cantitate=?,pret=? where id=?";
         deleteStatementStringProdus = "delete from produs"+" where id=?";
+        listaProduseString="Select * from produs";
         //showAllStatementString = "select * from produs";
     }
 
@@ -139,5 +142,34 @@ public class ProdusDAO {
         }
 
 
+    }
+
+    public static ArrayList<String[]> afiseazaProduse(){
+        String[] dateTabel;
+        dateTabel= new String[40];
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement listaProduseStatement=null;
+        ResultSet rs=null;
+        ArrayList<String[]> elemente=new ArrayList<String[]>();
+        try{
+            listaProduseStatement=dbConnection.prepareStatement(listaProduseString);
+            rs=listaProduseStatement.executeQuery();
+            int i=0;
+            while(rs.next())
+            {
+                dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("descriere"),Integer.toString(rs.getInt("cantitate")),Integer.toString(rs.getInt("pret"))};
+                elemente.add(dateTabel);
+                i++;
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        }finally {
+            ConnectionFactory.close(listaProduseStatement);
+            ConnectionFactory.close(dbConnection);
+            ConnectionFactory.close(rs);
+        }
+
+        return elemente;
     }
 }

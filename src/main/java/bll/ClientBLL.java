@@ -82,4 +82,9 @@ public class ClientBLL {
         }
     }
 
+    public int findIdClientLogat()
+    {
+        return ClientDAO.findIdClientLogat();
+    }
+
 }

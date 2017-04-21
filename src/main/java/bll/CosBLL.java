@@ -1,6 +1,7 @@
 package bll;
 
 import bll.validators.ClientLogatValidator;
+import bll.validators.CosNefinalizatValidator;
 import bll.validators.Validator;
 import dao.CosDAO;
 import model.Cos;
@@ -19,6 +20,7 @@ public class CosBLL {
     public CosBLL() {
         validators = new ArrayList<Validator<Cos>>();
         validators.add(new ClientLogatValidator());
+        validators.add(new CosNefinalizatValidator());
     }
 
     public int insert(Cos cos)

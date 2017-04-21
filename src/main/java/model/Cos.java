@@ -17,6 +17,11 @@ public class Cos {
         this.comanda_finalizata = false;
     }
 
+    public Cos()
+    {
+
+    }
+
     public int getId() {
         return id;
     }

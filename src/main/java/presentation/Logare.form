@@ -33,7 +33,7 @@
         </constraints>
         <properties>
           <alignmentX value="0.5"/>
-          <font name="Comic Sans MS" size="18"/>
+          <font name="Comic Sans MS" size="16"/>
           <horizontalTextPosition value="10"/>
           <text value="Parola"/>
         </properties>
@@ -48,7 +48,7 @@
         </constraints>
         <properties>
           <alignmentX value="0.5"/>
-          <font name="Comic Sans MS" size="18"/>
+          <font name="Comic Sans MS" size="16"/>
           <horizontalTextPosition value="10"/>
           <text value="Username"/>
         </properties>
