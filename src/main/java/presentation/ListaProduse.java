@@ -1,13 +1,11 @@
 package presentation;
 
-import bll.CosBLL;
 import bll.ProdusBLL;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -33,10 +31,68 @@ public class ListaProduse extends JFrame {
         this.setLocationRelativeTo(null);
         this.setContentPane(panel1);
         this.setSize(600, 400);
-        adaugaInCosButton.addActionListener(new ButonAdaugaInCos());
+        //adaugaInCosButton.addActionListener(new ButonAdaugaInCos());
 
 
         this.setResizable(false);
+    }
+
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+
+        table1 = new JTable();
+        modelUpdate();
+        table1.setModel(model);
+
+        //listSelectionModel = table1.getSelectionModel();
+        //table1.setSelectionModel(listSelectionModel);
+
+        //table1.getModel().setValueAt();
+        //dateTabel, columnNames
+        ScrollPane = new JScrollPane(table1);
+        //ScrollPane.add(table1);
+
+        //table1=new JTable();
+    }
+
+    public void modelUpdate() {
+        String[] columnNames = {"Id", "Descriere", "Cantitate", "Pret"};
+
+        ListSelectionModel listSelectionModel;
+        //JTableHeader=new JTableHeader()
+        ProdusBLL produsBLL = new ProdusBLL();
+        ArrayList<String[]> date;
+        date = produsBLL.afiseazaProduse();
+
+        model.setColumnNames(columnNames);
+        model.setList(date);
+        /*for (int i = 0; i < dateTabel.length; i++)
+            for (int j = 0; j < columnNames.length; j++)
+                model.setValueAt(dateTabel[i][j], i, j);*/
+
+
+        //return model;
+    }
+
+    public JTable getTable1() {
+        return table1;
+    }
+
+    public void setAdaugaInCosButton(ActionListener e) {
+        this.adaugaInCosButton.addActionListener(e);
+    }
+
+    public JTextField getIdField() {
+        return idField;
+    }
+
+    public JTextField getCantitateField() {
+        return cantitateField;
+    }
+
+    public MyModel getModel() {
+        return model;
     }
 
     /**
@@ -90,82 +146,4 @@ public class ListaProduse extends JFrame {
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
-
-    public class ButonAdaugaInCos implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            try {
-                int id = Integer.parseInt(idField.getText());
-                int cantitate = Integer.parseInt(cantitateField.getText());
-
-                CosBLL cosBLL = new CosBLL();
-                cosBLL.adaugaInCos(id, cantitate);
-                //createUIComponents();
-                //  ListaProduse.this.setVisible(false);
-                //new ListaProduse();
-                //$$$setupUI$$$();
-                //createUIComponents();
-                //String[] columnNames = {"Id", "Descriere", "Cantitate", "Pret"};
-                //String[][] dateTabel;
-
-                //ProdusBLL produsBLL = new ProdusBLL();
-                //dateTabel = produsBLL.afiseazaProduse();
-                /*for (int i = 0; i < 2; i++)
-                    for (int j = 0; j < 4; j++)
-                        System.out.println(dateTabel[i][j]);*/
-                //table1 = new JTable(dateTabel, columnNames);
-                //new ListaProduse();
-                ///table1.fireTableDataChanged();
-                ListaProduse.this.setVisible(false);
-                modelUpdate();
-                table1.setModel(model);
-                //ScrollPane.add(table1);
-                ListaProduse.this.setVisible(true);
-                JOptionPane.showMessageDialog(null, "Comanda a fost adaugata in cos!");
-
-            } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-
-
-        }
-
-    }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-
-        table1 = new JTable();
-        modelUpdate();
-        table1.setModel(model);
-
-        //listSelectionModel = table1.getSelectionModel();
-        //table1.setSelectionModel(listSelectionModel);
-
-        //table1.getModel().setValueAt();
-        //dateTabel, columnNames
-        ScrollPane = new JScrollPane(table1);
-        //ScrollPane.add(table1);
-
-        //table1=new JTable();
-    }
-
-    private void modelUpdate() {
-        String[] columnNames = {"Id", "Descriere", "Cantitate", "Pret"};
-
-        ListSelectionModel listSelectionModel;
-        //JTableHeader=new JTableHeader()
-        ProdusBLL produsBLL = new ProdusBLL();
-        ArrayList<String[]> date;
-        date = produsBLL.afiseazaProduse();
-
-        model.setColumnNames(columnNames);
-        model.setList(date);
-        /*for (int i = 0; i < dateTabel.length; i++)
-            for (int j = 0; j < columnNames.length; j++)
-                model.setValueAt(dateTabel[i][j], i, j);*/
-
-
-        //return model;
-    }
-
 }

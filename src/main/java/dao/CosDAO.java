@@ -20,12 +20,18 @@ public class CosDAO {
     private static final String adaugaInCosString;
     private static final String getIdCosString;
     private static final String finalizareComandaString;
+    private static final String pretCosString;
+    private static final String dateCosString;
+
 
     static {
         insertStatementString="insert into cos(pret_total,client_id,data_creare,comanda_finalizata)" + " VALUES (0,(select id from clienti where logat=true),?,false)";
         adaugaInCosString="Update cos set pret_total=pret_total+? where comanda_finalizata=false";
         getIdCosString="select Id from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
         finalizareComandaString="update cos set comanda_finalizata=true where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
+        pretCosString="Select pret_total from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
+        dateCosString="Select id,client_id,data_creare,pret_total from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
+
     }
 
     public static int insert(Cos cos)
@@ -94,14 +100,43 @@ public class CosDAO {
     {
         Connection dbConnection= ConnectionFactory.getConnection();
         PreparedStatement finalizareComandaStatement=null;
+        PreparedStatement dateCosStatement=null;
         ResultSet rs=null;
         try{
+            dateCosStatement=dbConnection.prepareStatement(dateCosString);
+            rs=dateCosStatement.executeQuery();
+            if(rs.next())
+            {
+                Cos cos=new Cos(rs.getInt("id"),rs.getInt("client_id"),rs.getString("data_creare"),rs.getInt("pret_total"));
+                cos.creareFactura();
+            }
+
             finalizareComandaStatement=dbConnection.prepareStatement(finalizareComandaString);
             finalizareComandaStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static int pretCos()
+    {
+        int pret=0;
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement pretCosStatement=null;
+        ResultSet rs=null;
+        try{
+            pretCosStatement=dbConnection.prepareStatement(pretCosString);
+            rs=pretCosStatement.executeQuery();
+            if(rs.next())
+            pret=rs.getInt("pret_total");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pret;
+
     }
 
 }

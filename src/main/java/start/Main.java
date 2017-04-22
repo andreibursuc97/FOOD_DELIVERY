@@ -36,10 +36,12 @@ public class Main {
         Logare logare=new Logare();
         Meniu meniu=new Meniu();
         DateClient dateClient=new DateClient();
+        //CosCurent cosCurent=new CosCurent();
+        ContNou contNou=new ContNou();
 
         //listaProduse.setVisible(true);
         //dateClient.setVisible(true);
-        Controller controller=new Controller(logare,meniu,dateClient,listaProduse);
+        Controller controller=new Controller(logare,meniu,dateClient,listaProduse,contNou);
 
 
 

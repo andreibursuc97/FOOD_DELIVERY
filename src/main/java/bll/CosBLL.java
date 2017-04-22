@@ -37,6 +37,11 @@ public class CosBLL {
         CosDAO.adaugaInCos(produsId,cantitate);
     }
 
+    public int veziPret()
+    {
+        return CosDAO.pretCos();
+    }
+
     public void finalizareComanda()
     {
         CosDAO.finalizareComanda();

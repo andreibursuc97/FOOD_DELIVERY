@@ -1,20 +1,30 @@
 package model;
 
+import bll.ClientBLL;
+import bll.ComandaBLL;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+
 /**
  * Created by Andrei on 19/04/2017.
  */
 public class Cos {
 
     private int id;
-    private float pret_total;
-    private int client_id;
-    private boolean comanda_finalizata;
+    private float pretTotal;
+    private int clientId;
+    private boolean comandaFinalizata;
+    private String data;
 
-    public Cos(int id, int client_id) {
+    public Cos(int id, int client_id,String data,int pretTotal) {
         this.id = id;
-        this.pret_total = 0;
-        this.client_id = client_id;
-        this.comanda_finalizata = false;
+        this.pretTotal = pretTotal;
+        this.clientId = client_id;
+        this.comandaFinalizata = false;
+        this.data=data;
     }
 
     public Cos()
@@ -26,23 +36,71 @@ public class Cos {
         return id;
     }
 
-    public float getPret_total() {
-        return pret_total;
+    public float getPretTotal() {
+        return pretTotal;
     }
 
-    public int getClient_id() {
-        return client_id;
+    public int getClientId() {
+        return clientId;
     }
 
-    public boolean isComanda_finalizata() {
-        return comanda_finalizata;
+    public boolean isComandaFinalizata() {
+        return comandaFinalizata;
     }
 
-    public void setPret_total(int pret_total) {
-        this.pret_total = pret_total;
+    public void setPretTotal(int pretTotal) {
+        this.pretTotal = pretTotal;
     }
 
-    public void setComanda_finalizata(boolean comanda_finalizata) {
-        this.comanda_finalizata = comanda_finalizata;
+    public void setComandaFinalizata(boolean comandaFinalizata) {
+        this.comandaFinalizata = comandaFinalizata;
+    }
+
+    public void creareFactura()
+    {
+        ClientBLL clientBLL=new ClientBLL();
+        // out = null;
+        try {
+            PrintStream out = new PrintStream(new FileOutputStream("factura_"+this.getId()+".txt"));
+            //out = new PrintWriter("factura"+this.getId()+".txt");
+
+            Client client=clientBLL.findClientById(this.getClientId());
+            out.println("--------------------------------------------------------------------------------------------------");
+            out.println("Date client:");
+            out.println("Nume:"+client.getNume());
+            out.println("Adresa:"+client.getAdresa());
+            out.println("Email:"+client.getEmail());
+            out.println("--------------------------------------------------------------------------------------------------");
+            out.println("Numar  |   Descriere   |   Cantitate   |   Pret bucata |");
+
+            ComandaBLL comandaBLL=new ComandaBLL();
+            ArrayList<String[]> produse=comandaBLL.veziComenzi();
+            out.println("--------------------------------------------------------------------------------------------------");
+            int i=1;
+            for(String[] produs:produse)
+            {
+
+                out.println("   "+i+".       "+produs[1]+"           "+produs[2]+"                 "+produs[3]+"           ");
+                i++;
+            }
+
+            out.println("--------------------------------------------------------------------------------------------------");
+
+            out.println("Total de plata:"+this.getPretTotal()+" lei");
+
+            out.println("--------------------------------------------------------------------------------------------------");
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
+
+
     }
 }

@@ -1,6 +1,7 @@
 package presentation;
 
 import bll.ClientBLL;
+import bll.CosBLL;
 import model.Client;
 
 import javax.swing.*;
@@ -16,8 +17,10 @@ public class Controller {
     private Meniu meniu;
     private DateClient dateClient;
     private ListaProduse listaProduse;
+    private CosCurent cosCurent;
+    private ContNou contNou;
 
-    public Controller(Logare logare,Meniu meniu,DateClient dateClient,ListaProduse listaProduse)
+    public Controller(Logare logare,Meniu meniu,DateClient dateClient,ListaProduse listaProduse,ContNou contNou)
     {
         this.logare=logare;
         logare.setVisible(true);
@@ -28,6 +31,12 @@ public class Controller {
         meniu.setDateleTaleButton(new ButonVeziDate());
         this.listaProduse=listaProduse;
         meniu.setListaProduseButton(new ButonVeziProduseListener());
+        //this.cosCurent=cosCurent;
+        meniu.setCosCurentButton(new ButonVeziCosCurent());
+        listaProduse.setAdaugaInCosButton(new ButonAdaugaInCos());
+
+        this.contNou=contNou;
+        logare.setContNouButton(new ButonContNou());
 
     }
 
@@ -64,6 +73,7 @@ public class Controller {
                 //Meniu meniu = new Meniu();
                 meniu.setVisible(true);
                 logare.setVisible(false);
+                cosCurent=new CosCurent();
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
@@ -99,6 +109,54 @@ public class Controller {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
+    }
+
+    public class ButonVeziCosCurent implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            cosCurent.setVisible(true);
+
+        }
+    }
+
+    public class ButonContNou implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            contNou.setVisible(true);
+
+        }
+    }
+
+    public class ButonAdaugaInCos implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+                int id = Integer.parseInt(listaProduse.getIdField().getText());
+                int cantitate = Integer.parseInt(listaProduse.getCantitateField().getText());
+
+                CosBLL cosBLL = new CosBLL();
+                cosBLL.adaugaInCos(id, cantitate);
+
+                //ListaProduse.this.setVisible(false);
+                listaProduse.modelUpdate();
+                listaProduse.getTable1().setModel(listaProduse.getModel());
+                //ScrollPane.add(table1);
+                //cosCurent=new CosCurent();
+                cosCurent.modelUpdate();
+                cosCurent.setVisible(true);
+                //ListaProduse.this.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Comanda a fost adaugata in cos!");
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+
+        }
+
     }
 
     }

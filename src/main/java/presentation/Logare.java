@@ -15,6 +15,7 @@ public class Logare extends JFrame {
     private JButton logareButton;
     private JTextField usernameField;
     private JPanel panelPrincipal;
+    private JButton contNouButton;
 
     public Logare() {
 
@@ -26,6 +27,10 @@ public class Logare extends JFrame {
         this.setResizable(false);
         this.setVisible(true);
 
+    }
+
+    public void setContNouButton(ActionListener e) {
+        contNouButton.addActionListener(e);
     }
 
     public void setLogareButton(ActionListener e) {
@@ -58,13 +63,13 @@ public class Logare extends JFrame {
      */
     private void $$$setupUI$$$() {
         panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new GridLayoutManager(3, 2, new Insets(20, 10, 20, 10), 10, 10));
+        panelPrincipal.setLayout(new GridLayoutManager(3, 3, new Insets(20, 10, 20, 10), 10, 10));
         panelPrincipal.setBackground(new Color(-5404120));
         panelPrincipal.setEnabled(true);
         panelPrincipal.setPreferredSize(new Dimension(350, 200));
         parolaField = new JTextField();
         parolaField.setFont(new Font("Comic Sans MS", parolaField.getFont().getStyle(), 14));
-        panelPrincipal.add(parolaField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 40), 0, false));
+        panelPrincipal.add(parolaField, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 40), 0, false));
         final JLabel label1 = new JLabel();
         label1.setAlignmentX(0.5f);
         label1.setFont(new Font("Comic Sans MS", label1.getFont().getStyle(), 16));
@@ -79,14 +84,25 @@ public class Logare extends JFrame {
         panelPrincipal.add(label2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, 20), new Dimension(90, 20), new Dimension(200, 20), 0, false));
         usernameField = new JTextField();
         usernameField.setFont(new Font("Comic Sans MS", usernameField.getFont().getStyle(), 14));
-        panelPrincipal.add(usernameField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 40), 0, false));
+        panelPrincipal.add(usernameField, new GridConstraints(0, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 40), 0, false));
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.setBackground(new Color(-5404120));
+        panelPrincipal.add(panel1, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         logareButton = new JButton();
         logareButton.setBackground(new Color(-11225979));
         logareButton.setFont(new Font("Comic Sans MS", logareButton.getFont().getStyle(), 14));
         logareButton.setHorizontalAlignment(0);
         logareButton.setHorizontalTextPosition(0);
         logareButton.setText("Logare");
-        panelPrincipal.add(logareButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
+        panel1.add(logareButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
+        contNouButton = new JButton();
+        contNouButton.setBackground(new Color(-11225979));
+        contNouButton.setFont(new Font("Comic Sans MS", contNouButton.getFont().getStyle(), 14));
+        contNouButton.setHorizontalAlignment(0);
+        contNouButton.setHorizontalTextPosition(0);
+        contNouButton.setText("Cont nou");
+        panel1.add(contNouButton, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
     }
 
     /**
