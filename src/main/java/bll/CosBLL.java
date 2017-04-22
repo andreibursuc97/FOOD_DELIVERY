@@ -47,4 +47,9 @@ public class CosBLL {
         CosDAO.finalizareComanda();
     }
 
+    public ArrayList<String[]> veziCosuri()
+    {
+        return CosDAO.veziCosuri();
+    }
+
 }

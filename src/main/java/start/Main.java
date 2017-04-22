@@ -38,10 +38,12 @@ public class Main {
         DateClient dateClient=new DateClient();
         //CosCurent cosCurent=new CosCurent();
         ContNou contNou=new ContNou();
-
+        ModificaProdus modificaProdus=new ModificaProdus();
+        AdaugaProdus adaugaProdus=new AdaugaProdus();
+        IstoricCosuri istoricCosuri=new IstoricCosuri();
         //listaProduse.setVisible(true);
         //dateClient.setVisible(true);
-        Controller controller=new Controller(logare,meniu,dateClient,listaProduse,contNou);
+        Controller controller=new Controller(logare,meniu,dateClient,listaProduse,contNou,modificaProdus,adaugaProdus,istoricCosuri);
 
 
 

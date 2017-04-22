@@ -8,6 +8,7 @@ import model.Produs;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -22,6 +23,7 @@ public class CosDAO {
     private static final String finalizareComandaString;
     private static final String pretCosString;
     private static final String dateCosString;
+    private static final String dateCos2String;
 
 
     static {
@@ -31,6 +33,7 @@ public class CosDAO {
         finalizareComandaString="update cos set comanda_finalizata=true where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
         pretCosString="Select pret_total from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
         dateCosString="Select id,client_id,data_creare,pret_total from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
+        dateCos2String="Select id,client_id,data_creare,pret_total from cos where comanda_finalizata=true and client_id=(select id from clienti where logat=true)";
 
     }
 
@@ -137,6 +140,35 @@ public class CosDAO {
 
         return pret;
 
+    }
+
+    public static ArrayList<String[]> veziCosuri()
+    {
+        String[] dateTabel;
+        dateTabel= new String[40];
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement dateCosStatement=null;
+        ResultSet rs=null;
+        ArrayList<String[]> elemente=new ArrayList<String[]>();
+        try{
+            dateCosStatement=dbConnection.prepareStatement(dateCos2String);
+            rs=dateCosStatement.executeQuery();
+            int i=0;
+            while(rs.next())
+            {
+                dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("data_creare"),Integer.toString(rs.getInt("pret_total"))};
+                elemente.add(dateTabel);
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        }finally {
+            ConnectionFactory.close(dateCosStatement);
+            ConnectionFactory.close(dbConnection);
+            ConnectionFactory.close(rs);
+        }
+
+        return elemente;
     }
 
 }

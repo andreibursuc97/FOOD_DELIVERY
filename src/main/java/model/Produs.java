@@ -16,6 +16,12 @@ public class Produs {
         this.cantitate = cantitate;
     }
 
+    public Produs(String descriere, float pret, int cantitate) {
+        this.descriere = descriere;
+        this.pret = pret;
+        this.cantitate = cantitate;
+    }
+
 
     public int getId() {
         return id;

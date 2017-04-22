@@ -2,7 +2,9 @@ package presentation;
 
 import bll.ClientBLL;
 import bll.CosBLL;
+import bll.ProdusBLL;
 import model.Client;
+import model.Produs;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,8 +21,11 @@ public class Controller {
     private ListaProduse listaProduse;
     private CosCurent cosCurent;
     private ContNou contNou;
+    private ModificaProdus modificaProdus;
+    private AdaugaProdus adaugaProdus;
+    private IstoricCosuri istoricCosuri;
 
-    public Controller(Logare logare,Meniu meniu,DateClient dateClient,ListaProduse listaProduse,ContNou contNou)
+    public Controller(Logare logare,Meniu meniu,DateClient dateClient,ListaProduse listaProduse,ContNou contNou,ModificaProdus modificaProdus,AdaugaProdus adaugaProdus,IstoricCosuri istoricCosuri)
     {
         this.logare=logare;
         logare.setVisible(true);
@@ -37,7 +42,14 @@ public class Controller {
 
         this.contNou=contNou;
         logare.setContNouButton(new ButonContNou());
-
+        this.modificaProdus=modificaProdus;
+        listaProduse.setModificaButton(new ButonActualizareProdus());
+        modificaProdus.setActualizareDateButton(new ButonActualizareDateProdus());
+        this.adaugaProdus=adaugaProdus;
+        listaProduse.setAdaugaButton(new ButonVeziAdaugaProdus());
+        adaugaProdus.setAdaugaProdusButton(new ButonAdaugaProdus());
+        this.istoricCosuri=istoricCosuri;
+        meniu.setIstoricCosuriButton(new ButonIstoricCosuri());
     }
 
     public class ButonVeziDate implements ActionListener{
@@ -149,6 +161,98 @@ public class Controller {
                 cosCurent.setVisible(true);
                 //ListaProduse.this.setVisible(true);
                 JOptionPane.showMessageDialog(null, "Comanda a fost adaugata in cos!");
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+
+        }
+
+    }
+
+    public class ButonActualizareProdus implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+                int id = Integer.parseInt(listaProduse.getIdField().getText());
+                ProdusBLL produsBLL=new ProdusBLL();
+                Produs produs=produsBLL.findProdusById(id);
+                modificaProdus.getIdField().setText(Integer.toString(produs.getId()));
+                modificaProdus.getDescriereField().setText(produs.getDescriere());
+                modificaProdus.getCantitateField().setText(Integer.toString(produs.getCantitate()));
+                modificaProdus.getPretField().setText(Float.toString(produs.getPret()));
+
+                modificaProdus.setVisible(true);
+               // JOptionPane.showMessageDialog(null, "Datele tale au fost actualizate cu succes!");
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+
+        }
+
+    }
+
+    public class ButonVeziAdaugaProdus implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            adaugaProdus.setVisible(true);
+
+        }
+    }
+
+    public class ButonIstoricCosuri implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            istoricCosuri.modelUpdate();
+            istoricCosuri.setVisible(true);
+
+        }
+    }
+
+    public class ButonActualizareDateProdus implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+                int id = Integer.parseInt(modificaProdus.getIdField().getText());
+                String descriere = modificaProdus.getDescriereField().getText();
+                int cantitate = Integer.parseInt(modificaProdus.getCantitateField().getText());
+                float pret = Float.parseFloat(modificaProdus.getPretField().getText());
+                Produs produs = new Produs(id, descriere, pret, cantitate);
+                ProdusBLL produsBLL = new ProdusBLL();
+
+                produsBLL.update(produs);
+                listaProduse.modelUpdate();
+                //JOptionPane.showMessageDialog(null, "Datele tale au fost actualizate cu succes!");
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+
+        }
+
+    }
+
+
+
+    public class ButonAdaugaProdus implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+
+                String descriere = adaugaProdus.getDescriereField().getText();
+                int cantitate = Integer.parseInt(adaugaProdus.getCantitateField().getText());
+                float pret = Float.parseFloat(adaugaProdus.getPretField().getText());
+                Produs produs = new Produs( descriere, pret, cantitate);
+                ProdusBLL produsBLL = new ProdusBLL();
+
+                produsBLL.insert(produs);
+                listaProduse.modelUpdate();
+                //JOptionPane.showMessageDialog(null, "Datele tale au fost actualizate cu succes!");
 
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
