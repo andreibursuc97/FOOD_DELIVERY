@@ -12,7 +12,7 @@ public class PretValidator implements Validator<Produs> {
 
     public void validate(Produs t) {
 
-        if (t.getCantitate() < MIN_PRET ){
+        if (t.getPret() < MIN_PRET ){
             throw new IllegalArgumentException("Cantitatea introdusa nu se incadreaza in limite!");
         }
 

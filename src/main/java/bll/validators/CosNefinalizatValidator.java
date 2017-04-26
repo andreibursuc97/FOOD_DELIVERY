@@ -1,12 +1,12 @@
 package bll.validators;
 
-import connection.ConnectionFactory;
-import model.Cos;
+        import connection.ConnectionFactory;
+        import model.Cos;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+        import java.sql.Connection;
+        import java.sql.PreparedStatement;
+        import java.sql.ResultSet;
+        import java.sql.SQLException;
 
 /**
  * Created by Andrei on 21/04/2017.

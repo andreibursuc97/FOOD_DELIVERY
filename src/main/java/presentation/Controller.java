@@ -24,8 +24,9 @@ public class Controller {
     private ModificaProdus modificaProdus;
     private AdaugaProdus adaugaProdus;
     private IstoricCosuri istoricCosuri;
+    private VeziClienti veziClienti;
 
-    public Controller(Logare logare,Meniu meniu,DateClient dateClient,ListaProduse listaProduse,ContNou contNou,ModificaProdus modificaProdus,AdaugaProdus adaugaProdus,IstoricCosuri istoricCosuri)
+    public Controller(Logare logare,Meniu meniu,DateClient dateClient,ListaProduse listaProduse,ContNou contNou,ModificaProdus modificaProdus,AdaugaProdus adaugaProdus,IstoricCosuri istoricCosuri,VeziClienti veziClienti)
     {
         this.logare=logare;
         logare.setVisible(true);
@@ -50,6 +51,8 @@ public class Controller {
         adaugaProdus.setAdaugaProdusButton(new ButonAdaugaProdus());
         this.istoricCosuri=istoricCosuri;
         meniu.setIstoricCosuriButton(new ButonIstoricCosuri());
+        this.veziClienti=veziClienti;
+        logare.setVeziButon(new ButonVeziClienti());
     }
 
     public class ButonVeziDate implements ActionListener{
@@ -200,6 +203,17 @@ public class Controller {
         public void actionPerformed(ActionEvent e) {
 
             adaugaProdus.setVisible(true);
+
+        }
+    }
+
+    public class ButonVeziClienti implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            veziClienti.modelUpdate();
+            veziClienti.setVisible(true);
 
         }
     }

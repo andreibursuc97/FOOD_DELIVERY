@@ -87,4 +87,9 @@ public class ClientBLL {
         return ClientDAO.findIdClientLogat();
     }
 
+    public ArrayList<String[]> showAll()
+    {
+        return ClientDAO.showAll();
+    }
+
 }

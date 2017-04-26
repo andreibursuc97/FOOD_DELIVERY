@@ -4,6 +4,7 @@ import model.Client;
 import connection.ConnectionFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by Andrei on 18/04/2017.
@@ -18,6 +19,7 @@ public class ClientDAO {
     private static final String logareString;
     private static final String delogareString;
     private static final String findIdString;
+    private static final String showAllString;
 
     //private static final String logareStatementString;
 
@@ -29,6 +31,7 @@ public class ClientDAO {
         logareString="update clienti set logat=true where username=?";
         delogareString="update clienti set logat=false where logat=true";
         findIdString="select id from clienti where logat=true";
+        showAllString="select id,username,nume,adresa,email,varsta from clienti";
     }
 
 
@@ -223,19 +226,22 @@ public class ClientDAO {
 
     }
 
-    /*public static void showAll()
+    public static ArrayList<String[]> showAll()
     {
         Connection dbConnection= ConnectionFactory.getConnection();
         PreparedStatement showAllStatement=null;
         ResultSet rs=null;
+        ArrayList<String[]> elemente=new ArrayList<String[]>();
+        String[] dateTabel=null;
         try {
-            showAllStatement=dbConnection.prepareStatement(deleteStatementString);
+            showAllStatement=dbConnection.prepareStatement(showAllString);
 
             rs=showAllStatement.executeQuery();
 
             while(rs.next())
             {
-
+                dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("username"),rs.getString("nume"),rs.getString("adresa"),rs.getString("email"),Integer.toString(rs.getInt("varsta"))};
+                elemente.add(dateTabel);
             }
 
 
@@ -245,5 +251,6 @@ public class ClientDAO {
             ConnectionFactory.close(showAllStatement);
             ConnectionFactory.close(dbConnection);
         }
-    }*/
+        return elemente;
+    }
 }

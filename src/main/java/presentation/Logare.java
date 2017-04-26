@@ -16,12 +16,13 @@ public class Logare extends JFrame {
     private JTextField usernameField;
     private JPanel panelPrincipal;
     private JButton contNouButton;
+    private JButton veziButon;
 
     public Logare() {
 
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setSize(350, 200);
+        this.setSize(400, 200);
         this.setLocationRelativeTo(null);
         this.setContentPane(panelPrincipal);
         this.setResizable(false);
@@ -35,6 +36,11 @@ public class Logare extends JFrame {
 
     public void setLogareButton(ActionListener e) {
         logareButton.addActionListener(e);
+    }
+
+
+    public void setVeziButon(ActionListener e) {
+        veziButon.addActionListener(e);
     }
 
 
@@ -66,7 +72,7 @@ public class Logare extends JFrame {
         panelPrincipal.setLayout(new GridLayoutManager(3, 3, new Insets(20, 10, 20, 10), 10, 10));
         panelPrincipal.setBackground(new Color(-5404120));
         panelPrincipal.setEnabled(true);
-        panelPrincipal.setPreferredSize(new Dimension(350, 200));
+        panelPrincipal.setPreferredSize(new Dimension(400, 200));
         parolaField = new JTextField();
         parolaField.setFont(new Font("Comic Sans MS", parolaField.getFont().getStyle(), 14));
         panelPrincipal.add(parolaField, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 40), 0, false));
@@ -103,6 +109,13 @@ public class Logare extends JFrame {
         contNouButton.setHorizontalTextPosition(0);
         contNouButton.setText("Cont nou");
         panel1.add(contNouButton, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
+        veziButon = new JButton();
+        veziButon.setBackground(new Color(-11225979));
+        veziButon.setFont(new Font("Comic Sans MS", veziButon.getFont().getStyle(), 14));
+        veziButon.setHorizontalAlignment(0);
+        veziButon.setHorizontalTextPosition(0);
+        veziButon.setText("Clientii");
+        panelPrincipal.add(veziButon, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
     }
 
     /**
