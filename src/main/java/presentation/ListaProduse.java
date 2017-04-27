@@ -64,34 +64,22 @@ public class ListaProduse extends JFrame {
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table1.add(table1.getTableHeader(), BorderLayout.PAGE_START);
 
-        //listSelectionModel = table1.getSelectionModel();
-        //table1.setSelectionModel(listSelectionModel);
 
-        //table1.getModel().setValueAt();
-        //dateTabel, columnNames
         ScrollPane = new JScrollPane(table1);
-        //ScrollPane.add(table1);
 
-        //table1=new JTable();
     }
 
     public void modelUpdate() {
         String[] columnNames = {"Id", "Descriere", "Cantitate", "Pret"};
 
-        ListSelectionModel listSelectionModel;
-        //JTableHeader=new JTableHeader()
+
         ProdusBLL produsBLL = new ProdusBLL();
         ArrayList<String[]> date;
         date = produsBLL.afiseazaProduse();
 
         model.setColumnNames(columnNames);
         model.setList(date);
-        /*for (int i = 0; i < dateTabel.length; i++)
-            for (int j = 0; j < columnNames.length; j++)
-                model.setValueAt(dateTabel[i][j], i, j);*/
 
-
-        //return model;
     }
 
     /**

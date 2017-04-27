@@ -34,6 +34,7 @@ public class CosBLL {
 
     public void adaugaInCos(int produsId,int cantitate)
     {
+        if(cantitate<0) throw new IllegalArgumentException("Cantitatea introdusa nu se incadreaza in limite!");
         CosDAO.adaugaInCos(produsId,cantitate);
     }
 

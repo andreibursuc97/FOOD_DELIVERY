@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Andrei on 19/04/2017.
@@ -79,8 +80,9 @@ public class Cos {
             int i=1;
             for(String[] produs:produse)
             {
+                String filled = this.getStringWithLengthAndFilledWithCharacter(18-produs[1].length(),' ');
 
-                out.println("   "+i+".       "+produs[1]+"           "+produs[2]+"                 "+produs[3]+"           ");
+                out.println("   "+i+".       "+produs[1]+filled+produs[2]+"                 "+produs[3]+"           ");
                 i++;
             }
 
@@ -102,5 +104,13 @@ public class Cos {
 
 
 
+    }
+    protected String getStringWithLengthAndFilledWithCharacter(int length, char charToFill) {
+        if (length > 0) {
+            char[] array = new char[length];
+            Arrays.fill(array, charToFill);
+            return new String(array);
+        }
+        return "";
     }
 }
