@@ -64,7 +64,6 @@ public class ListaProduse extends JFrame {
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table1.add(table1.getTableHeader(), BorderLayout.PAGE_START);
 
-
         ScrollPane = new JScrollPane(table1);
 
     }

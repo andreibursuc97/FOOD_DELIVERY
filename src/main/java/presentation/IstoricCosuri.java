@@ -38,6 +38,7 @@ public class IstoricCosuri extends JFrame {
         ///pretField = new JTextField();
         modelUpdate();
         table1.setModel(model);
+
         table1.setFillsViewportHeight(true);
 
         //listSelectionModel = table1.getSelectionModel();
