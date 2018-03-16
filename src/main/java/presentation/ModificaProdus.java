@@ -84,34 +84,58 @@ public class ModificaProdus extends JFrame {
         idField.setEditable(false);
         panelPrincipal.add(idField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
         final JLabel label1 = new JLabel();
-        label1.setFont(new Font("Comic Sans MS", label1.getFont().getStyle(), 16));
+        Font label1Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label1.getFont());
+        if (label1Font != null) label1.setFont(label1Font);
         label1.setText("ID");
         panelPrincipal.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
         descriereField = new JTextField();
         descriereField.setEditable(true);
         panelPrincipal.add(descriereField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
         final JLabel label2 = new JLabel();
-        label2.setFont(new Font("Comic Sans MS", label2.getFont().getStyle(), 16));
+        Font label2Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label2.getFont());
+        if (label2Font != null) label2.setFont(label2Font);
         label2.setText("Descriere");
         panelPrincipal.add(label2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
         final JLabel label3 = new JLabel();
-        label3.setFont(new Font("Comic Sans MS", label3.getFont().getStyle(), 16));
+        Font label3Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label3.getFont());
+        if (label3Font != null) label3.setFont(label3Font);
         label3.setText("Pret");
         panelPrincipal.add(label3, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
         pretField = new JTextField();
         panelPrincipal.add(pretField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
         actualizareDateButton = new JButton();
         actualizareDateButton.setBackground(new Color(-11225979));
-        actualizareDateButton.setFont(new Font("Constantia", actualizareDateButton.getFont().getStyle(), 14));
+        Font actualizareDateButtonFont = this.$$$getFont$$$("Constantia", -1, 14, actualizareDateButton.getFont());
+        if (actualizareDateButtonFont != null) actualizareDateButton.setFont(actualizareDateButtonFont);
         actualizareDateButton.setHorizontalAlignment(0);
         actualizareDateButton.setHorizontalTextPosition(0);
         actualizareDateButton.setText("Actualizare date");
         panelPrincipal.add(actualizareDateButton, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(130, 20), new Dimension(300, 40), 0, false));
         final JLabel label4 = new JLabel();
-        label4.setFont(new Font("Comic Sans MS", label4.getFont().getStyle(), 16));
+        Font label4Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label4.getFont());
+        if (label4Font != null) label4.setFont(label4Font);
         label4.setText("Cantitate");
         panelPrincipal.add(label4, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
         cantitateField = new JTextField();
         panelPrincipal.add(cantitateField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 }

@@ -74,22 +74,26 @@ public class Logare extends JFrame {
         panelPrincipal.setEnabled(true);
         panelPrincipal.setPreferredSize(new Dimension(400, 200));
         parolaField = new JTextField();
-        parolaField.setFont(new Font("Comic Sans MS", parolaField.getFont().getStyle(), 14));
+        Font parolaFieldFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, parolaField.getFont());
+        if (parolaFieldFont != null) parolaField.setFont(parolaFieldFont);
         panelPrincipal.add(parolaField, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 40), 0, false));
         final JLabel label1 = new JLabel();
         label1.setAlignmentX(0.5f);
-        label1.setFont(new Font("Comic Sans MS", label1.getFont().getStyle(), 16));
+        Font label1Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label1.getFont());
+        if (label1Font != null) label1.setFont(label1Font);
         label1.setHorizontalTextPosition(10);
         label1.setText("Parola");
         panelPrincipal.add(label1, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, 20), new Dimension(80, 20), new Dimension(200, 20), 0, false));
         final JLabel label2 = new JLabel();
         label2.setAlignmentX(0.5f);
-        label2.setFont(new Font("Comic Sans MS", label2.getFont().getStyle(), 16));
+        Font label2Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label2.getFont());
+        if (label2Font != null) label2.setFont(label2Font);
         label2.setHorizontalTextPosition(10);
         label2.setText("Username");
         panelPrincipal.add(label2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, 20), new Dimension(90, 20), new Dimension(200, 20), 0, false));
         usernameField = new JTextField();
-        usernameField.setFont(new Font("Comic Sans MS", usernameField.getFont().getStyle(), 14));
+        Font usernameFieldFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, usernameField.getFont());
+        if (usernameFieldFont != null) usernameField.setFont(usernameFieldFont);
         panelPrincipal.add(usernameField, new GridConstraints(0, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 40), 0, false));
         final JPanel panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(1, 2, new Insets(0, 0, 0, 0), -1, -1));
@@ -97,25 +101,47 @@ public class Logare extends JFrame {
         panelPrincipal.add(panel1, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         logareButton = new JButton();
         logareButton.setBackground(new Color(-11225979));
-        logareButton.setFont(new Font("Comic Sans MS", logareButton.getFont().getStyle(), 14));
+        Font logareButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, logareButton.getFont());
+        if (logareButtonFont != null) logareButton.setFont(logareButtonFont);
         logareButton.setHorizontalAlignment(0);
         logareButton.setHorizontalTextPosition(0);
         logareButton.setText("Logare");
         panel1.add(logareButton, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
         contNouButton = new JButton();
         contNouButton.setBackground(new Color(-11225979));
-        contNouButton.setFont(new Font("Comic Sans MS", contNouButton.getFont().getStyle(), 14));
+        Font contNouButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, contNouButton.getFont());
+        if (contNouButtonFont != null) contNouButton.setFont(contNouButtonFont);
         contNouButton.setHorizontalAlignment(0);
         contNouButton.setHorizontalTextPosition(0);
         contNouButton.setText("Cont nou");
         panel1.add(contNouButton, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
         veziButon = new JButton();
         veziButon.setBackground(new Color(-11225979));
-        veziButon.setFont(new Font("Comic Sans MS", veziButon.getFont().getStyle(), 14));
+        Font veziButonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, veziButon.getFont());
+        if (veziButonFont != null) veziButon.setFont(veziButonFont);
         veziButon.setHorizontalAlignment(0);
         veziButon.setHorizontalTextPosition(0);
         veziButon.setText("Clientii");
         panelPrincipal.add(veziButon, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**

@@ -50,7 +50,8 @@ public class CosCurent extends JFrame {
         panel1.setLayout(new GridLayoutManager(4, 1, new Insets(20, 10, 20, 10), -1, -1));
         panel1.setBackground(new Color(-5404120));
         scrollPane1.setBackground(new Color(-11225979));
-        scrollPane1.setFont(new Font("Comic Sans MS", scrollPane1.getFont().getStyle(), 14));
+        Font scrollPane1Font = this.$$$getFont$$$("Comic Sans MS", -1, 14, scrollPane1.getFont());
+        if (scrollPane1Font != null) scrollPane1.setFont(scrollPane1Font);
         panel1.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         table1.setBackground(new Color(-11225979));
         scrollPane1.setViewportView(table1);
@@ -59,15 +60,36 @@ public class CosCurent extends JFrame {
         panel2.setBackground(new Color(-5404120));
         panel1.add(panel2, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JLabel label1 = new JLabel();
-        label1.setFont(new Font("Comic Sans MS", label1.getFont().getStyle(), 14));
+        Font label1Font = this.$$$getFont$$$("Comic Sans MS", -1, 14, label1.getFont());
+        if (label1Font != null) label1.setFont(label1Font);
         label1.setText("Pret total");
         panel2.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         panel2.add(pretField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 20), new Dimension(200, 50), 0, false));
         finalizareButton = new JButton();
         finalizareButton.setBackground(new Color(-11225979));
-        finalizareButton.setFont(new Font("Constantia", finalizareButton.getFont().getStyle(), 14));
+        Font finalizareButtonFont = this.$$$getFont$$$("Constantia", -1, 14, finalizareButton.getFont());
+        if (finalizareButtonFont != null) finalizareButton.setFont(finalizareButtonFont);
         finalizareButton.setText("Finalizare comanda");
         panel1.add(finalizareButton, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**

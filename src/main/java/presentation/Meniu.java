@@ -41,18 +41,15 @@ public class Meniu extends JFrame {
         dateleTaleButton.addActionListener(e);
     }
 
-    public void setListaProduseButton(ActionListener e)
-    {
+    public void setListaProduseButton(ActionListener e) {
         listaProduseButton.addActionListener(e);
     }
 
-    public void setCosCurentButton(ActionListener e)
-    {
+    public void setCosCurentButton(ActionListener e) {
         cosCurentButton.addActionListener(e);
     }
 
-    public void setIstoricCosuriButton(ActionListener e)
-    {
+    public void setIstoricCosuriButton(ActionListener e) {
         istoricCosuriButton.addActionListener(e);
     }
 
@@ -78,22 +75,26 @@ public class Meniu extends JFrame {
         panel1.setMinimumSize(new Dimension(500, 300));
         cosNouButton = new JButton();
         cosNouButton.setBackground(new Color(-11225979));
-        cosNouButton.setFont(new Font("Constantia", cosNouButton.getFont().getStyle(), 16));
+        Font cosNouButtonFont = this.$$$getFont$$$("Constantia", -1, 16, cosNouButton.getFont());
+        if (cosNouButtonFont != null) cosNouButton.setFont(cosNouButtonFont);
         cosNouButton.setText("Cos nou");
         panel1.add(cosNouButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(70, 60), new Dimension(200, 200), 0, false));
         cosCurentButton = new JButton();
         cosCurentButton.setBackground(new Color(-11225979));
-        cosCurentButton.setFont(new Font("Constantia", cosCurentButton.getFont().getStyle(), 16));
+        Font cosCurentButtonFont = this.$$$getFont$$$("Constantia", -1, 16, cosCurentButton.getFont());
+        if (cosCurentButtonFont != null) cosCurentButton.setFont(cosCurentButtonFont);
         cosCurentButton.setText("Cos curent");
         panel1.add(cosCurentButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(70, 60), new Dimension(200, 200), 0, false));
         listaProduseButton = new JButton();
         listaProduseButton.setBackground(new Color(-11225979));
-        listaProduseButton.setFont(new Font("Constantia", listaProduseButton.getFont().getStyle(), 16));
+        Font listaProduseButtonFont = this.$$$getFont$$$("Constantia", -1, 16, listaProduseButton.getFont());
+        if (listaProduseButtonFont != null) listaProduseButton.setFont(listaProduseButtonFont);
         listaProduseButton.setText("Lista produse");
         panel1.add(listaProduseButton, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(70, 60), new Dimension(200, 200), 0, false));
         istoricCosuriButton = new JButton();
         istoricCosuriButton.setBackground(new Color(-11225979));
-        istoricCosuriButton.setFont(new Font("Constantia", istoricCosuriButton.getFont().getStyle(), 16));
+        Font istoricCosuriButtonFont = this.$$$getFont$$$("Constantia", -1, 16, istoricCosuriButton.getFont());
+        if (istoricCosuriButtonFont != null) istoricCosuriButton.setFont(istoricCosuriButtonFont);
         istoricCosuriButton.setText("Istoric cosuri");
         panel1.add(istoricCosuriButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(70, 60), new Dimension(200, 200), 0, false));
         final JPanel panel2 = new JPanel();
@@ -102,18 +103,40 @@ public class Meniu extends JFrame {
         panel1.add(panel2, new GridConstraints(0, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         delogareButton = new JButton();
         delogareButton.setBackground(new Color(-11225979));
-        delogareButton.setFont(new Font("Constantia", delogareButton.getFont().getStyle(), 16));
+        Font delogareButtonFont = this.$$$getFont$$$("Constantia", -1, 16, delogareButton.getFont());
+        if (delogareButtonFont != null) delogareButton.setFont(delogareButtonFont);
         delogareButton.setText("Delogare");
         panel2.add(delogareButton, new GridConstraints(1, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 50), new Dimension(200, 200), 0, false));
         dateleTaleButton = new JButton();
         dateleTaleButton.setBackground(new Color(-11225979));
-        dateleTaleButton.setFont(new Font("Constantia", dateleTaleButton.getFont().getStyle(), 16));
+        Font dateleTaleButtonFont = this.$$$getFont$$$("Constantia", -1, 16, dateleTaleButton.getFont());
+        if (dateleTaleButtonFont != null) dateleTaleButton.setFont(dateleTaleButtonFont);
         dateleTaleButton.setText("Datele tale");
         panel2.add(dateleTaleButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 50), new Dimension(200, 200), 0, false));
         final JLabel label1 = new JLabel();
-        label1.setFont(new Font("Constantia", label1.getFont().getStyle(), 16));
+        Font label1Font = this.$$$getFont$$$("Constantia", -1, 16, label1.getFont());
+        if (label1Font != null) label1.setFont(label1Font);
         label1.setText("Bine ati venit!");
         panel2.add(label1, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**

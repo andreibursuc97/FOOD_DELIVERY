@@ -111,7 +111,8 @@ public class ListaProduse extends JFrame {
         panel2.add(label2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         adaugaInCosButton = new JButton();
         adaugaInCosButton.setBackground(new Color(-11225979));
-        adaugaInCosButton.setFont(new Font("Comic Sans MS", adaugaInCosButton.getFont().getStyle(), 14));
+        Font adaugaInCosButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, adaugaInCosButton.getFont());
+        if (adaugaInCosButtonFont != null) adaugaInCosButton.setFont(adaugaInCosButtonFont);
         adaugaInCosButton.setText("Adauga in cos");
         panel2.add(adaugaInCosButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
         cantitateField = new JTextField();
@@ -120,14 +121,35 @@ public class ListaProduse extends JFrame {
         panel2.add(idField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
         modificaButton = new JButton();
         modificaButton.setBackground(new Color(-11225979));
-        modificaButton.setFont(new Font("Comic Sans MS", modificaButton.getFont().getStyle(), 14));
+        Font modificaButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, modificaButton.getFont());
+        if (modificaButtonFont != null) modificaButton.setFont(modificaButtonFont);
         modificaButton.setText("Modifica produs");
         panel2.add(modificaButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
         adaugaButon = new JButton();
         adaugaButon.setBackground(new Color(-11225979));
-        adaugaButon.setFont(new Font("Comic Sans MS", adaugaButon.getFont().getStyle(), 14));
+        Font adaugaButonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, adaugaButon.getFont());
+        if (adaugaButonFont != null) adaugaButon.setFont(adaugaButonFont);
         adaugaButon.setText("Adauga produs");
         panel2.add(adaugaButon, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**
