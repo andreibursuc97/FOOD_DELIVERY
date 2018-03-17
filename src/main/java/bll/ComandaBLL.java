@@ -2,6 +2,7 @@ package bll;
 
 import dao.ComandaDAO;
 import dao.ProdusDAO;
+import model.ComandaArticol;
 import model.Produs;
 
 import java.util.ArrayList;
@@ -29,4 +30,16 @@ public class ComandaBLL {
     {
         return ComandaDAO.veziComenzi();
     }
+
+    public ComandaArticol findById(int comandaId)
+    {
+        return ComandaDAO.findById(comandaId);
+    }
+
+    public void stergeComanda(int idComanda)
+    {
+        ComandaDAO.stergeComanda(idComanda);
+    }
+
+
 }

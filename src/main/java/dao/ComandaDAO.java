@@ -1,6 +1,10 @@
 package dao;
 
+import bll.CosBLL;
+import bll.ProdusBLL;
 import connection.ConnectionFactory;
+import model.ComandaArticol;
+import model.Cos;
 import model.Produs;
 
 import java.sql.Connection;
@@ -17,12 +21,16 @@ public class ComandaDAO {
     private static final String insertString;
     private static final String veziComenziString;
     private static final String detaliiComenziString;
+    private static final String stergeComandaString;
+    private static final String cautaComandaString;
     //private static final String getProdus;
 
     static{
         insertString="insert into comanda_articol(cos_id,produs_id,cantitate,pret_bucata) values(?,?,?,?);";
         veziComenziString="select id,cantitate,pret_bucata,produs_id from comanda_articol where cos_id=(select id from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true))";
         detaliiComenziString="select descriere from produs where id=?";
+        cautaComandaString="select cos_id,produs_id,cantitate,pret_bucata from comanda_articol where id=?";
+        stergeComandaString="delete from comanda_articol where id=?";
     }
 
     public static void insert(int produsId,int cantitate,int cosId)
@@ -49,6 +57,66 @@ public class ComandaDAO {
             e.printStackTrace();
         }
 
+    }
+
+    public static ComandaArticol findById(int comandaId){
+        ComandaArticol toReturn=null;
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement findStatement=null;
+        ResultSet rs=null;
+
+
+        try {
+            findStatement=dbConnection.prepareStatement(cautaComandaString);
+            findStatement.setInt(1,comandaId);
+            rs=findStatement.executeQuery();
+            rs.next();
+            int cosId=rs.getInt("cos_id");
+            int cantitate=rs.getInt("cantitate");
+            float pret=rs.getFloat("pret_bucata");
+            int produsId=rs.getInt("produs_id");
+            toReturn=new ComandaArticol(comandaId, cosId,produsId,cantitate,pret);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionFactory.close(rs);
+            ConnectionFactory.close(findStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+
+        return toReturn;
+
+    }
+
+    public static void stergeComanda(int idComanda)
+    {
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement stergeComandaStatement=null;
+        ComandaArticol comanda=findById(idComanda);
+        Produs produs;
+        Cos cos;
+        ProdusBLL produsBLL=new ProdusBLL();
+        CosBLL cosBLL=new CosBLL();
+        ResultSet rs=null;
+
+        try{
+            stergeComandaStatement=dbConnection.prepareStatement(stergeComandaString);
+
+
+            // Produs produs=ProdusDAO.findById(produsId);
+            stergeComandaStatement.setInt(1,idComanda);
+            stergeComandaStatement.executeUpdate();
+            produs=ProdusDAO.findById(comanda.getProdus_id());
+            produs.setCantitate(produs.getCantitate()+comanda.getCantitate());
+            produsBLL.update(produs);
+            cos=CosDAO.findById(comanda.getCos_id());
+            cosBLL.setPretCos(comanda.getCos_id(),cos.getPretTotal()-comanda.getCantitate()*comanda.getPret_bucata());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static ArrayList<String[]> veziComenzi()

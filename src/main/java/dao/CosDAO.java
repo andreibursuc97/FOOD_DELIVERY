@@ -24,11 +24,17 @@ public class CosDAO {
     private static final String pretCosString;
     private static final String dateCosString;
     private static final String dateCos2String;
+    private static final String sumString;
+    private static final String updatePretCosString;
+    private static final String cautaCosString;
 
 
     static {
         insertStatementString="insert into cos(pret_total,client_id,data_creare,comanda_finalizata)" + " VALUES (0,(select id from clienti where logat=true),?,false)";
-        adaugaInCosString="Update cos set pret_total=pret_total+? where comanda_finalizata=false";
+        adaugaInCosString="Update cos set pret_total=? where comanda_finalizata=false";
+        sumString="select sum(pret_bucata*cantitate) from comanda_articol where cos_id=(select max(id) from cos)";
+        updatePretCosString="update cos set pret_total=? where id=?";
+        cautaCosString="select pret_total,client_id,data_creare,comanda_finalizata from cos where id=?";
         getIdCosString="select Id from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
         finalizareComandaString="update cos set comanda_finalizata=true where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
         pretCosString="Select pret_total from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
@@ -72,25 +78,66 @@ public class CosDAO {
         return insertedId;
     }
 
+    public static Cos findById(int cosId){
+        Cos toReturn=null;
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement findStatement=null;
+        ResultSet rs=null;
+
+
+        try {
+            findStatement=dbConnection.prepareStatement(cautaCosString);
+            findStatement.setInt(1,cosId);
+            rs=findStatement.executeQuery();
+            rs.next();
+            float pretTotal=rs.getFloat("pret_total");
+            int clientId=rs.getInt("client_id");
+            String data=rs.getString("data_creare");
+            //boolean comandaFinalizata=rs.getBoolean("comanda_finalizata");
+            toReturn=new Cos(cosId, clientId,data,pretTotal);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionFactory.close(rs);
+            ConnectionFactory.close(findStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+
+        return toReturn;
+
+    }
+
     public static void adaugaInCos(int produsId,int cantitate)
     {
         Connection dbConnection= ConnectionFactory.getConnection();
         PreparedStatement adaugaInCosStatement=null;
         PreparedStatement getIdCosStatement=null;
+        PreparedStatement sumStatement=null;
         ResultSet rs=null;
+        ResultSet sum=null;
+        float suma=0;
 
         try{
             adaugaInCosStatement=dbConnection.prepareStatement(adaugaInCosString);
             getIdCosStatement=dbConnection.prepareStatement(getIdCosString);
+            sumStatement=dbConnection.prepareStatement(sumString);
             Produs produs=ProdusDAO.findById(produsId);
             float pret=produs.getPret();
             rs=getIdCosStatement.executeQuery();
+
             if(rs.next())
             {   ComandaBLL comandaBLL=new ComandaBLL();
                 comandaBLL.insert(produsId,cantitate,rs.getInt("id"));}
             else throw new IllegalArgumentException("Nu exista un cos gol creat!");
-
-            adaugaInCosStatement.setFloat(1,pret*cantitate);
+            sum=sumStatement.executeQuery();
+            if(sum.next())
+            {
+                suma=sum.getInt("sum(pret_bucata*cantitate)");
+                System.out.println(suma);
+            }
+            adaugaInCosStatement.setFloat(1,suma);
             adaugaInCosStatement.executeUpdate();
 
 
@@ -98,6 +145,8 @@ public class CosDAO {
             e.printStackTrace();
         }
     }
+
+
 
     public static void finalizareComanda()
     {
@@ -140,6 +189,21 @@ public class CosDAO {
 
         return pret;
 
+    }
+
+    public static void setPretCos(int idCos,float pret)
+    {
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement updatePretCosStatement=null;
+        try{
+            updatePretCosStatement=dbConnection.prepareStatement(updatePretCosString);
+            updatePretCosStatement.setFloat(1,pret);
+            updatePretCosStatement.setInt(2,idCos);
+            updatePretCosStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static ArrayList<String[]> veziCosuri()

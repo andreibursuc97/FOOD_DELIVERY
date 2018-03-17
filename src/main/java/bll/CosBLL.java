@@ -32,10 +32,22 @@ public class CosBLL {
         return CosDAO.insert(cos);
     }
 
+    public Cos findById(int cosId)
+    {
+        return CosDAO.findById(cosId);
+    }
+
     public void adaugaInCos(int produsId,int cantitate)
     {
         if(cantitate<0) throw new IllegalArgumentException("Cantitatea introdusa nu se incadreaza in limite!");
         CosDAO.adaugaInCos(produsId,cantitate);
+    }
+
+    public void setPretCos(int idCos,float pret)
+    {
+
+
+        CosDAO.setPretCos(idCos,pret);
     }
 
     public int veziPret()

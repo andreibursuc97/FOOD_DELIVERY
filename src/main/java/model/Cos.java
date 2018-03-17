@@ -20,7 +20,7 @@ public class Cos {
     private boolean comandaFinalizata;
     private String data;
 
-    public Cos(int id, int client_id,String data,int pretTotal) {
+    public Cos(int id, int client_id,String data,float pretTotal) {
         this.id = id;
         this.pretTotal = pretTotal;
         this.clientId = client_id;

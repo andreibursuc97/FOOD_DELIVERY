@@ -1,6 +1,7 @@
 package bll;
 
 import bll.validators.CantitateValidator;
+import bll.validators.ExistaDejaProdusValidator;
 import bll.validators.PretValidator;
 import bll.validators.Validator;
 import dao.ProdusDAO;
@@ -34,6 +35,8 @@ public class ProdusBLL {
         for (Validator<Produs> v : validators) {
             v.validate(produs);
         }
+        Validator<Produs> v=new ExistaDejaProdusValidator();
+        v.validate(produs);
         return ProdusDAO.insert(produs);
     }
 

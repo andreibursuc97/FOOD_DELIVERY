@@ -57,6 +57,10 @@ public class ListaProduse extends JFrame {
         // TODO: place custom component creation code here
 
         table1 = new JTable();
+        listSelectionModel = table1.getSelectionModel();
+        table1.setSelectionModel(listSelectionModel);
+        listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
+        table1.setSelectionModel(listSelectionModel);
         modelUpdate();
         table1.setModel(model);
         table1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -135,6 +139,7 @@ public class ListaProduse extends JFrame {
         cantitateField = new JTextField();
         panel2.add(cantitateField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
         idField = new JTextField();
+        idField.setEditable(false);
         panel2.add(idField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
     }
 
@@ -151,30 +156,9 @@ public class ListaProduse extends JFrame {
         @Override
         public void valueChanged(ListSelectionEvent e) {
             ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-            String contents = "";
+            if (table1.getSelectedRow() != -1)
+                idField.setText(table1.getValueAt(table1.getSelectedRow(), 0).toString());
 
-            if (lsm.isSelectionEmpty()) {
-                System.out.println("<none>");
-            } else {
-                int minIndex = lsm.getMinSelectionIndex();
-                int maxIndex = lsm.getMaxSelectionIndex();
-                if (minIndex == maxIndex) {
-                    //minIndex++;
-                    //System.out.println(minIndex);
-
-                    setFields(minIndex);
-                } else {
-                    clearFields();
-                    for (int i = minIndex; i <= maxIndex; i++) {
-                        if (lsm.isSelectedIndex(i)) {
-                            for (int j = 0; j < table1.getColumnCount(); j++) {
-                                contents += table1.getValueAt(i, j) + " ";
-                            }
-                        }
-                    }
-                    System.out.println(contents);
-                }
-            }
         }
     }
 

@@ -42,9 +42,10 @@ public class Main {
         AdaugaProdus adaugaProdus=new AdaugaProdus();
         IstoricCosuri istoricCosuri=new IstoricCosuri();
         VeziClienti veziClienti=new VeziClienti();
+        CosCurent cosCurent=new CosCurent();
         //listaProduse.setVisible(true);
         //dateClient.setVisible(true);
-        Controller controller=new Controller(logare,meniu,dateClient,listaProduse,contNou,modificaProdus,adaugaProdus,istoricCosuri,veziClienti);
+        Controller controller=new Controller(logare,meniu,dateClient,cosCurent,listaProduse,contNou,modificaProdus,adaugaProdus,istoricCosuri,veziClienti);
 
 
 
