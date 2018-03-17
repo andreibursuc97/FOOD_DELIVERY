@@ -41,5 +41,14 @@ public class ComandaBLL {
         ComandaDAO.stergeComanda(idComanda);
     }
 
+    public void modificaComanda(int idComanda,int cantitate)
+    {
+        if(cantitate<0)
+            throw new IllegalArgumentException("Nu poti seta cantitatea la un numar negativ!");
+        if(cantitate==0)
+            throw new IllegalArgumentException("Nu poti seta cantitatea la 0, trebuie sa stergi produsul din cos!");
+        ComandaDAO.modificaComanda(idComanda,cantitate);
+    }
+
 
 }

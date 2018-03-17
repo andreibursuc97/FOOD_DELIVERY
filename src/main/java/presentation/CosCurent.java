@@ -87,6 +87,14 @@ public class CosCurent extends JFrame {
         return idField;
     }
 
+    public JTextField getCantitateField() {
+        return cantitateField;
+    }
+
+    public void setModificaCantitateButton(ActionListener e) {
+        this.modificaCantitateButton.addActionListener(e);
+    }
+
     private void createUIComponents() {
 
         table1 = new JTable();
