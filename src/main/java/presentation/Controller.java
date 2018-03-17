@@ -45,6 +45,7 @@ public class Controller {
         this.cosCurent=cosCurent;
         this.cosCurent.setFinalizareButton(new FinalizareComanda());
         this.cosCurent.setStergeProdusDinCosButton(new StergeComanda());
+        this.cosCurent.setModificaCantitateButton(new ModificaComanda());
         listaProduse.setAdaugaInCosButton(new ButonAdaugaInCos());
 
         this.contNou=contNou;
@@ -118,6 +119,31 @@ public class Controller {
 
                 ComandaBLL comandaBLL = new ComandaBLL();
                 comandaBLL.stergeComanda(Integer.parseInt(cosCurent.getIdField().getText()));
+                //ListaProduse.this.setVisible(false);
+                cosCurent.getIdField().setText("");
+                cosCurent.modelUpdate();
+                cosCurent.getTable1().setModel(cosCurent.getModel());
+                listaProduse.modelUpdate();
+                listaProduse.getTable1().setModel(listaProduse.getModel());
+                //ScrollPane.add(table1);
+                //ListaProduse.this.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Comanda a fost finalizata!");
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+
+        }
+
+    }
+
+    public class ModificaComanda implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+
+                ComandaBLL comandaBLL = new ComandaBLL();
+                comandaBLL.modificaComanda(Integer.parseInt(cosCurent.getIdField().getText()),Integer.parseInt(cosCurent.getCantitateField().getText()));
                 //ListaProduse.this.setVisible(false);
                 cosCurent.modelUpdate();
                 cosCurent.getTable1().setModel(cosCurent.getModel());
