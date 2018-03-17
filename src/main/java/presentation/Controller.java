@@ -1,12 +1,15 @@
 package presentation;
 
 import bll.ClientBLL;
+import bll.ComandaBLL;
 import bll.CosBLL;
 import bll.ProdusBLL;
 import model.Client;
 import model.Produs;
 
 import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,7 +29,7 @@ public class Controller {
     private IstoricCosuri istoricCosuri;
     private VeziClienti veziClienti;
 
-    public Controller(Logare logare,Meniu meniu,DateClient dateClient,ListaProduse listaProduse,ContNou contNou,ModificaProdus modificaProdus,AdaugaProdus adaugaProdus,IstoricCosuri istoricCosuri,VeziClienti veziClienti)
+    public Controller(Logare logare,Meniu meniu,DateClient dateClient,CosCurent cosCurent,ListaProduse listaProduse,ContNou contNou,ModificaProdus modificaProdus,AdaugaProdus adaugaProdus,IstoricCosuri istoricCosuri,VeziClienti veziClienti)
     {
         this.logare=logare;
         logare.setVisible(true);
@@ -37,17 +40,20 @@ public class Controller {
         meniu.setDateleTaleButton(new ButonVeziDate());
         this.listaProduse=listaProduse;
         meniu.setListaProduseButton(new ButonVeziProduseListener());
-        //this.cosCurent=cosCurent;
+
         meniu.setCosCurentButton(new ButonVeziCosCurent());
+        this.cosCurent=cosCurent;
+        this.cosCurent.setFinalizareButton(new FinalizareComanda());
+        this.cosCurent.setStergeProdusDinCosButton(new StergeComanda());
         listaProduse.setAdaugaInCosButton(new ButonAdaugaInCos());
 
         this.contNou=contNou;
         logare.setContNouButton(new ButonContNou());
         this.modificaProdus=modificaProdus;
-        listaProduse.setModificaButton(new ButonActualizareProdus());
+        //listaProduse.setModificaButton(new ButonActualizareProdus());
         modificaProdus.setActualizareDateButton(new ButonActualizareDateProdus());
         this.adaugaProdus=adaugaProdus;
-        listaProduse.setAdaugaButton(new ButonVeziAdaugaProdus());
+        //listaProduse.setAdaugaButton(new ButonVeziAdaugaProdus());
         adaugaProdus.setAdaugaProdusButton(new ButonAdaugaProdus());
         this.istoricCosuri=istoricCosuri;
         meniu.setIstoricCosuriButton(new ButonIstoricCosuri());
@@ -75,9 +81,63 @@ public class Controller {
         }
     }
 
+    public class TableListener implements TableModelListener {
+
+        public void tableChanged(TableModelEvent e) {
+            // your code goes here, whatever you want to do when something changes in the table
+        }
+    }
+
+    public class FinalizareComanda implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
 
 
-    public class ButonLogareListener implements ActionListener {
+                CosBLL cosBLL = new CosBLL();
+                cosBLL.finalizareComanda();
+
+                //ListaProduse.this.setVisible(false);
+                cosCurent.modelUpdate();
+                cosCurent.getTable1().setModel(cosCurent.getModel());
+                //ScrollPane.add(table1);
+                //ListaProduse.this.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Comanda a fost finalizata!");
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+
+        }
+
+    }
+
+    public class StergeComanda implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+
+                ComandaBLL comandaBLL = new ComandaBLL();
+                comandaBLL.stergeComanda(Integer.parseInt(cosCurent.getIdField().getText()));
+                //ListaProduse.this.setVisible(false);
+                cosCurent.modelUpdate();
+                cosCurent.getTable1().setModel(cosCurent.getModel());
+                listaProduse.modelUpdate();
+                listaProduse.getTable1().setModel(listaProduse.getModel());
+                //ScrollPane.add(table1);
+                //ListaProduse.this.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Comanda a fost finalizata!");
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+
+        }
+
+    }
+
+
+        public class ButonLogareListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             String username = logare.getUsernameField().getText();
@@ -88,7 +148,7 @@ public class Controller {
                 //Meniu meniu = new Meniu();
                 meniu.setVisible(true);
                 logare.setVisible(false);
-                cosCurent=new CosCurent();
+
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
@@ -131,6 +191,8 @@ public class Controller {
         @Override
         public void actionPerformed(ActionEvent e) {
 
+            cosCurent.modelUpdate();
+            cosCurent.getTable1().setModel(cosCurent.getModel());
             cosCurent.setVisible(true);
 
         }
@@ -276,6 +338,8 @@ public class Controller {
         }
 
     }
+
+
 
     }
 
