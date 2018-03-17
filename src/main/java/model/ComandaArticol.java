@@ -9,9 +9,9 @@ public class ComandaArticol {
     private int cos_id;
     private int produs_id;
     private int cantitate;
-    private int pret_bucata;
+    private float pret_bucata;
 
-    public ComandaArticol(int id, int cos_id, int produs_id, int cantitate, int pret_bucata) {
+    public ComandaArticol(int id, int cos_id, int produs_id, int cantitate, float pret_bucata) {
         this.id = id;
         this.cos_id = cos_id;
         this.produs_id = produs_id;
@@ -35,7 +35,7 @@ public class ComandaArticol {
         return cantitate;
     }
 
-    public int getPret_bucata() {
+    public float getPret_bucata() {
         return pret_bucata;
     }
 }
