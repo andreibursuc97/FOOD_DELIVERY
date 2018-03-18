@@ -44,7 +44,7 @@
             </constraints>
             <properties>
               <font name="Comic Sans MS" size="14"/>
-              <text value="Pret total"/>
+              <text value="Pret fara reducere"/>
             </properties>
           </component>
           <component id="4f93" class="javax.swing.JTextField" binding="pretField" custom-create="true">
