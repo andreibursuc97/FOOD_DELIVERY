@@ -8,7 +8,7 @@
     <properties>
       <background color="-5404120"/>
       <enabled value="true"/>
-      <preferredSize width="400" height="200"/>
+      <preferredSize width="430" height="200"/>
     </properties>
     <border type="none"/>
     <children>
@@ -106,7 +106,7 @@
           </component>
         </children>
       </grid>
-      <component id="b003e" class="javax.swing.JButton" binding="veziButon">
+      <component id="b003e" class="javax.swing.JButton" binding="logareAdminButon">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
             <preferred-size width="80" height="20"/>
@@ -118,7 +118,7 @@
           <font name="Comic Sans MS" size="14"/>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
-          <text value="Clientii"/>
+          <text value="Admin"/>
         </properties>
       </component>
     </children>

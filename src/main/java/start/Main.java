@@ -43,9 +43,11 @@ public class Main {
         IstoricCosuri istoricCosuri=new IstoricCosuri();
         VeziClienti veziClienti=new VeziClienti();
         CosCurent cosCurent=new CosCurent();
+        MeniuAdmin meniuAdmin=new MeniuAdmin();
+        ListaProduseAdmin listaProduseAdmin=new ListaProduseAdmin();
         //listaProduse.setVisible(true);
         //dateClient.setVisible(true);
-        Controller controller=new Controller(logare,meniu,dateClient,cosCurent,listaProduse,contNou,modificaProdus,adaugaProdus,istoricCosuri,veziClienti);
+        Controller controller=new Controller(logare,meniu,dateClient,cosCurent,listaProduse,contNou,modificaProdus,adaugaProdus,istoricCosuri,veziClienti,meniuAdmin,listaProduseAdmin);
 
 
 

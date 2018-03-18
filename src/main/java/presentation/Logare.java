@@ -16,7 +16,7 @@ public class Logare extends JFrame {
     private JTextField usernameField;
     private JPanel panelPrincipal;
     private JButton contNouButton;
-    private JButton veziButon;
+    private JButton logareAdminButon;
 
     public Logare() {
 
@@ -39,8 +39,8 @@ public class Logare extends JFrame {
     }
 
 
-    public void setVeziButon(ActionListener e) {
-        veziButon.addActionListener(e);
+    public void setLogareAdminButon(ActionListener e) {
+        logareAdminButon.addActionListener(e);
     }
 
 
@@ -51,6 +51,25 @@ public class Logare extends JFrame {
 
     public JTextField getParolaField() {
         return parolaField;
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     {
@@ -72,7 +91,7 @@ public class Logare extends JFrame {
         panelPrincipal.setLayout(new GridLayoutManager(3, 3, new Insets(20, 10, 20, 10), 10, 10));
         panelPrincipal.setBackground(new Color(-5404120));
         panelPrincipal.setEnabled(true);
-        panelPrincipal.setPreferredSize(new Dimension(400, 200));
+        panelPrincipal.setPreferredSize(new Dimension(430, 200));
         parolaField = new JTextField();
         Font parolaFieldFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, parolaField.getFont());
         if (parolaFieldFont != null) parolaField.setFont(parolaFieldFont);
@@ -115,33 +134,14 @@ public class Logare extends JFrame {
         contNouButton.setHorizontalTextPosition(0);
         contNouButton.setText("Cont nou");
         panel1.add(contNouButton, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
-        veziButon = new JButton();
-        veziButon.setBackground(new Color(-11225979));
-        Font veziButonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, veziButon.getFont());
-        if (veziButonFont != null) veziButon.setFont(veziButonFont);
-        veziButon.setHorizontalAlignment(0);
-        veziButon.setHorizontalTextPosition(0);
-        veziButon.setText("Clientii");
-        panelPrincipal.add(veziButon, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
-    }
-
-    /**
-     * @noinspection ALL
-     */
-    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
-        if (currentFont == null) return null;
-        String resultName;
-        if (fontName == null) {
-            resultName = currentFont.getName();
-        } else {
-            Font testFont = new Font(fontName, Font.PLAIN, 10);
-            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
-                resultName = fontName;
-            } else {
-                resultName = currentFont.getName();
-            }
-        }
-        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+        logareAdminButon = new JButton();
+        logareAdminButon.setBackground(new Color(-11225979));
+        Font logareAdminButonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, logareAdminButon.getFont());
+        if (logareAdminButonFont != null) logareAdminButon.setFont(logareAdminButonFont);
+        logareAdminButon.setHorizontalAlignment(0);
+        logareAdminButon.setHorizontalTextPosition(0);
+        logareAdminButon.setText("Admin");
+        panelPrincipal.add(logareAdminButon, new GridConstraints(2, 2, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(100, 40), 0, false));
     }
 
     /**

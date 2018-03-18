@@ -1,15 +1,10 @@
 package presentation;
 
-import bll.ClientBLL;
-import bll.ComandaBLL;
-import bll.CosBLL;
-import bll.ProdusBLL;
+import bll.*;
 import model.Client;
 import model.Produs;
 
 import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -28,15 +23,20 @@ public class Controller {
     private AdaugaProdus adaugaProdus;
     private IstoricCosuri istoricCosuri;
     private VeziClienti veziClienti;
+    private MeniuAdmin meniuAdmin;
+    private ListaProduseAdmin listaProduseAdmin;
 
-    public Controller(Logare logare,Meniu meniu,DateClient dateClient,CosCurent cosCurent,ListaProduse listaProduse,ContNou contNou,ModificaProdus modificaProdus,AdaugaProdus adaugaProdus,IstoricCosuri istoricCosuri,VeziClienti veziClienti)
+    public Controller(Logare logare,Meniu meniu,DateClient dateClient,CosCurent cosCurent,ListaProduse listaProduse,ContNou contNou,ModificaProdus modificaProdus,AdaugaProdus adaugaProdus,IstoricCosuri istoricCosuri,VeziClienti veziClienti,
+    MeniuAdmin meniuAdmin,ListaProduseAdmin listaProduseAdmin)
     {
         this.logare=logare;
         logare.setVisible(true);
         logare.setLogareButton(new ButonLogareListener());
+        logare.setLogareAdminButon(new ButonLogareAdminListener());
         this.meniu=meniu;
         meniu.setDelogareButton(new ButonDelogareListener());
         this.dateClient=dateClient;
+        dateClient.setActualizareDateButton(new ButonActualizareDate());
         meniu.setDateleTaleButton(new ButonVeziDate());
         this.listaProduse=listaProduse;
         meniu.setListaProduseButton(new ButonVeziProduseListener());
@@ -59,7 +59,13 @@ public class Controller {
         this.istoricCosuri=istoricCosuri;
         meniu.setIstoricCosuriButton(new ButonIstoricCosuri());
         this.veziClienti=veziClienti;
-        logare.setVeziButon(new ButonVeziClienti());
+        veziClienti.setDateClientButton(new ButonAdminVeziDate());
+        //logare.setLogareAdminButon(new ButonVeziClienti());
+        this.meniuAdmin=meniuAdmin;
+        this.meniuAdmin.setDelogareButton(new ButonDelogareAdminListener());
+        this.meniuAdmin.setDateClientiButton(new ButonVeziClienti());
+        this.meniuAdmin.setDateProduseButton(new ButonVeziProduseAdminListener());
+        this.listaProduseAdmin=listaProduseAdmin;
     }
 
     public class ButonVeziDate implements ActionListener{
@@ -82,12 +88,53 @@ public class Controller {
         }
     }
 
-    public class TableListener implements TableModelListener {
+    public class ButonActualizareDate implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            try {
+                int id = Integer.parseInt(dateClient.getIdField().getText());
+                String username = dateClient.getUsernameField().getText();
+                String nume = dateClient.getNumeField().getText();
+                String adresa = dateClient.getAdresaField().getText();
+                String email = dateClient.getEmailField().getText();
+                int varsta = Integer.parseInt(dateClient.getVarstaField().getText());
+                String parola = dateClient.getParolaField().getText();
 
-        public void tableChanged(TableModelEvent e) {
-            // your code goes here, whatever you want to do when something changes in the table
+                Client client = new Client(id, username, nume, adresa, email, varsta, parola);
+                ClientBLL clientBLL = new ClientBLL();
+                clientBLL.update(client);
+                veziClienti.modelUpdate();
+                veziClienti.getTable1().setModel(veziClienti.getModel());
+                JOptionPane.showMessageDialog(null, "Datele tale au fost actualizate cu succes!");
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+
+
+        }
+
+    }
+
+    public class ButonAdminVeziDate implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+            try{
+                ClientBLL clientBLL=new ClientBLL();
+                int id=Integer.parseInt(veziClienti.getIdField().getText());
+                Client client=clientBLL.findClientById(id);
+                dateClient.getIdField().setText(Integer.toString(client.getId()));
+                dateClient.getUsernameField().setText(client.getUsername());
+                dateClient.getNumeField().setText(client.getNume());
+                dateClient.getAdresaField().setText(client.getAdresa());
+                dateClient.getEmailField().setText(client.getEmail());
+                dateClient.getVarstaField().setText(Integer.toString(client.getVarsta()));
+                dateClient.getParolaField().setText(client.getParola());
+                dateClient.setVisible(true);
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
         }
     }
+
 
     public class FinalizareComanda implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -181,15 +228,50 @@ public class Controller {
         }
     }
 
+    public class ButonLogareAdminListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            String username = logare.getUsernameField().getText();
+            String parola = logare.getParolaField().getText();
+            try {
+                AdminBLL adminBLL=new AdminBLL();
+                adminBLL.logare(username, parola);
+                //Meniu meniu = new Meniu();
+                meniuAdmin.setVisible(true);
+                logare.setVisible(false);
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+
     public class ButonDelogareListener implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
 
             try {
                 ClientBLL clientBLL = new ClientBLL();
+
                 clientBLL.delogare();
 
                 meniu.setVisible(false);
+                logare.setVisible(true);
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+
+    public class ButonDelogareAdminListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+            try {
+                AdminBLL adminBLL = new AdminBLL();
+                adminBLL.delogare();
+
+                meniuAdmin.setVisible(false);
                 logare.setVisible(true);
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -206,11 +288,32 @@ public class Controller {
 
                 //meniu.setVisible(false);
                 listaProduse.setVisible(true);
+                listaProduse.modelUpdate();
+                listaProduse.getTable1().setModel(listaProduse.getModel());
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
     }
+
+    public class ButonVeziProduseAdminListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+            try {
+                //ProdusBLL produsBLL = new ProdusBLL();
+
+                //meniu.setVisible(false);
+                listaProduseAdmin.setVisible(true);
+                listaProduseAdmin.modelUpdate();
+                listaProduseAdmin.getTable1().setModel(listaProduseAdmin.getModel());
+
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+
 
     public class ButonVeziCosCurent implements ActionListener{
 

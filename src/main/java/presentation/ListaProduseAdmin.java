@@ -8,25 +8,23 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Created by Andrei on 21/04/2017.
- */
-public class ListaProduse extends JFrame {
-    private JTable table1;
+public class ListaProduseAdmin extends JFrame {
     private JPanel panel1;
     private JScrollPane ScrollPane;
+    private JTable table1;
     private JButton adaugaInCosButton;
-    private JTextField idField;
     private JTextField cantitateField;
+    private JTextField idField;
+
     private MyModel model;
     private String[] selectedData;
     private ListSelectionModel listSelectionModel;
 
-    public ListaProduse() {
+    public ListaProduseAdmin() {
         model = new MyModel();
+
         table1 = new JTable();
         listSelectionModel = table1.getSelectionModel();
         table1.setSelectionModel(listSelectionModel);
@@ -45,14 +43,6 @@ public class ListaProduse extends JFrame {
         this.setResizable(false);
     }
 
-    /*public void setModificaButton(ActionListener e) {
-        modificaButton.addActionListener(e);
-    }
-
-    public void setAdaugaButton(ActionListener e) {
-        adaugaButon.addActionListener(e);
-    }
-*/
     private void createUIComponents() {
         // TODO: place custom component creation code here
 
@@ -83,6 +73,22 @@ public class ListaProduse extends JFrame {
 
     }
 
+    public JTable getTable1() {
+        return table1;
+    }
+
+    public void setTable1(JTable table1) {
+        this.table1 = table1;
+    }
+
+    public MyModel getModel() {
+        return model;
+    }
+
+    public void setModel(MyModel model) {
+        this.model = model;
+    }
+
     /**
      * @noinspection ALL
      */
@@ -111,45 +117,40 @@ public class ListaProduse extends JFrame {
      */
     private void $$$setupUI$$$() {
         createUIComponents();
+        final JPanel panel2 = new JPanel();
+        panel2.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel1 = new JPanel();
         panel1.setLayout(new GridLayoutManager(4, 2, new Insets(20, 10, 20, 10), -1, -1));
         panel1.setBackground(new Color(-5404120));
+        panel2.add(panel1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         ScrollPane.setBackground(new Color(-5404120));
         ScrollPane.setForeground(new Color(-5404120));
         panel1.add(ScrollPane, new GridConstraints(0, 0, 4, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         table1.setBackground(new Color(-11225979));
         table1.setFillsViewportHeight(true);
         ScrollPane.setViewportView(table1);
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
-        panel2.setBackground(new Color(-5404120));
-        panel1.add(panel2, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        final JPanel panel3 = new JPanel();
+        panel3.setLayout(new GridLayoutManager(3, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel3.setBackground(new Color(-5404120));
+        panel1.add(panel3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JLabel label1 = new JLabel();
         label1.setText("Id Produs");
-        panel2.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel3.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JLabel label2 = new JLabel();
         label2.setText("Cantitate");
-        panel2.add(label2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel3.add(label2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         adaugaInCosButton = new JButton();
         adaugaInCosButton.setBackground(new Color(-11225979));
         Font adaugaInCosButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, adaugaInCosButton.getFont());
         if (adaugaInCosButtonFont != null) adaugaInCosButton.setFont(adaugaInCosButtonFont);
         adaugaInCosButton.setText("Adauga in cos");
-        panel2.add(adaugaInCosButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
+        panel3.add(adaugaInCosButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
         cantitateField = new JTextField();
-        panel2.add(cantitateField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
+        panel3.add(cantitateField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
         idField = new JTextField();
         idField.setEditable(false);
-        panel2.add(idField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
+        panel3.add(idField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
     }
-
-    /**
-     * @noinspection ALL
-     */
-    public JComponent $$$getRootComponent$$$() {
-        return panel1;
-    }
-
 
     class SharedListSelectionHandler implements ListSelectionListener {
 
@@ -161,37 +162,4 @@ public class ListaProduse extends JFrame {
 
         }
     }
-
-    private void setFields(int index) {
-        idField.setText(table1.getValueAt(index, 0).toString());
-        // numar.setText(table.getValueAt(index, 5).toString());
-        //year.setText(table.getValueAt(index, 2).toString());
-    }
-
-    private void clearFields() {
-        idField.setText("");
-        //color.setText("");
-        //year.setText("");
-    }
-
-    public JTable getTable1() {
-        return table1;
-    }
-
-    public void setAdaugaInCosButton(ActionListener e) {
-        this.adaugaInCosButton.addActionListener(e);
-    }
-
-    public JTextField getIdField() {
-        return idField;
-    }
-
-    public JTextField getCantitateField() {
-        return cantitateField;
-    }
-
-    public MyModel getModel() {
-        return model;
-    }
-
 }

@@ -33,7 +33,7 @@ public class DateClient extends JFrame {
         this.setSize(380, 350);
         this.setLocationRelativeTo(null);
         this.setContentPane(panelPrincipal);
-        actualizareDateButton.addActionListener(new ButonActualizareDate());
+
 
         this.setResizable(false);
     }
@@ -64,6 +64,34 @@ public class DateClient extends JFrame {
 
     public JTextField getEmailField() {
         return emailField;
+    }
+
+    public void setActualizareDateButton(ActionListener e) {
+        actualizareDateButton.addActionListener(e);
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
+    }
+
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 
     /**
@@ -142,56 +170,7 @@ public class DateClient extends JFrame {
     /**
      * @noinspection ALL
      */
-    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
-        if (currentFont == null) return null;
-        String resultName;
-        if (fontName == null) {
-            resultName = currentFont.getName();
-        } else {
-            Font testFont = new Font(fontName, Font.PLAIN, 10);
-            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
-                resultName = fontName;
-            } else {
-                resultName = currentFont.getName();
-            }
-        }
-        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
-    }
-
-    /**
-     * @noinspection ALL
-     */
     public JComponent $$$getRootComponent$$$() {
         return panelPrincipal;
     }
-
-    public class ButonActualizareDate implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            try {
-                int id = Integer.parseInt(idField.getText());
-                String username = usernameField.getText();
-                String nume = numeField.getText();
-                String adresa = adresaField.getText();
-                String email = emailField.getText();
-                int varsta = Integer.parseInt(varstaField.getText());
-                String parola = parolaField.getText();
-
-                Client client = new Client(id, username, nume, adresa, email, varsta, parola);
-                ClientBLL clientBLL = new ClientBLL();
-                clientBLL.update(client);
-                JOptionPane.showMessageDialog(null, "Datele tale au fost actualizate cu succes!");
-
-            } catch (IllegalArgumentException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-
-
-        }
-
-    }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-    }
-
 }
