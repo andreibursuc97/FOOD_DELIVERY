@@ -128,6 +128,18 @@
           <text value="Sterge produs din cos"/>
         </properties>
       </component>
+      <component id="65af2" class="javax.swing.JTextField" binding="reducereField">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="250" height="20"/>
+            <maximum-size width="280" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <editable value="false"/>
+          <text value=""/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>
