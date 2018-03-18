@@ -65,4 +65,9 @@ public class CosBLL {
         return CosDAO.veziCosuri();
     }
 
+    public static ArrayList<String[]> adminVeziCosuri(int id)
+    {
+        return  CosDAO.adminVeziCosuri(id);
+    }
+
 }

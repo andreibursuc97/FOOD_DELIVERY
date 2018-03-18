@@ -25,6 +25,7 @@ public class CosCurent extends JFrame {
     private JButton stergeProdusDinCosButton;
     private JTextField idField;
     private JTextField cantitateField;
+    private JTextField reducereField;
     private MyModel model;
     private ListSelectionModel listSelectionModel;
 
@@ -77,6 +78,10 @@ public class CosCurent extends JFrame {
 
     public MyModel getModel() {
         return model;
+    }
+
+    public JTextField getReducereField() {
+        return reducereField;
     }
 
     public void setStergeProdusDinCosButton(ActionListener e) {
@@ -178,6 +183,10 @@ public class CosCurent extends JFrame {
         if (stergeProdusDinCosButtonFont != null) stergeProdusDinCosButton.setFont(stergeProdusDinCosButtonFont);
         stergeProdusDinCosButton.setText("Sterge produs din cos");
         panel1.add(stergeProdusDinCosButton, new GridConstraints(4, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        reducereField = new JTextField();
+        reducereField.setEditable(false);
+        reducereField.setText("");
+        panel1.add(reducereField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 20), new Dimension(280, 50), 0, false));
     }
 
     /**

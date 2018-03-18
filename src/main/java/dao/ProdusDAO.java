@@ -157,8 +157,10 @@ public class ProdusDAO {
             int i=0;
             while(rs.next())
             {
+
                 dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("descriere"),Integer.toString(rs.getInt("cantitate")),Integer.toString(rs.getInt("pret"))};
-                elemente.add(dateTabel);
+                if(!rs.getString("descriere").equals("Reducere 5%"))
+                    elemente.add(dateTabel);
                 i++;
             }
         }catch (SQLException e) {

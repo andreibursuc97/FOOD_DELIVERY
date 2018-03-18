@@ -20,18 +20,20 @@ public class ClientDAO {
     private static final String delogareString;
     private static final String findIdString;
     private static final String showAllString;
+    private static final String findUsernameString;
 
     //private static final String logareStatementString;
 
     static {
         findStatementString = "SELECT * FROM clienti where id=?";
-        insertStatementString = "insert into clienti(username,nume,adresa,email,varsta,parola)"+" VALUES (?,?,?,?,?,?)";
-        updateStatementString = "update clienti"+" set nume=?,adresa=?,email=?,varsta=?,parola=? where id=?";
+        insertStatementString = "insert into clienti(username,nume,adresa,email,varsta,parola,loial)"+" VALUES (?,?,?,?,?,?,false)";
+        updateStatementString = "update clienti"+" set nume=?,adresa=?,email=?,varsta=?,parola=?,loial=? where id=?";
         deleteStatementString = "delete from clienti"+" where id=?";
         logareString="update clienti set logat=true where username=?";
         delogareString="update clienti set logat=false where logat=true";
         findIdString="select id from clienti where logat=true";
-        showAllString="select id,username,nume,adresa,email,varsta from clienti";
+        showAllString="select id,username,nume,adresa,email,varsta,loial from clienti";
+        findUsernameString="SELECT * FROM clienti where username=?";
     }
 
 
@@ -54,7 +56,8 @@ public class ClientDAO {
             String email=rs.getString("email");
             int varsta=rs.getInt("varsta");
             String parola=rs.getString("parola");
-            toReturn=new Client(clientId,username,nume,adresa,email,varsta,parola);
+            boolean loial=rs.getBoolean("loial");
+            toReturn=new Client(clientId,username,nume,adresa,email,varsta,parola,loial);
 
 
         } catch (SQLException e) {
@@ -62,6 +65,40 @@ public class ClientDAO {
         }finally {
             ConnectionFactory.close(rs);
             ConnectionFactory.close(findStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+
+        return toReturn;
+
+    }
+
+    public static Client findByUsername(String username){
+        Client toReturn=null;
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement findUsernameStatement=null;
+        ResultSet rs=null;
+
+
+        try {
+            findUsernameStatement=dbConnection.prepareStatement(findUsernameString);
+            findUsernameStatement.setString(1,username);
+            rs=findUsernameStatement.executeQuery();
+            rs.next();
+            int id=rs.getInt("id");
+            String nume=rs.getString("nume");
+            String adresa=rs.getString("adresa");
+            String email=rs.getString("email");
+            int varsta=rs.getInt("varsta");
+            String parola=rs.getString("parola");
+            boolean loial=rs.getBoolean("loial");
+            toReturn=new Client(id,username,nume,adresa,email,varsta,parola,loial);
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            ConnectionFactory.close(rs);
+            ConnectionFactory.close(findUsernameStatement);
             ConnectionFactory.close(dbConnection);
         }
 
@@ -141,8 +178,9 @@ public class ClientDAO {
             updateStatement.setString(2,client.getAdresa());
             updateStatement.setString(3,client.getEmail());
             updateStatement.setInt(4,client.getVarsta());
-            updateStatement.setInt(6,client.getId());
             updateStatement.setString(5,client.getParola());
+            updateStatement.setBoolean(6,client.isLoial());
+            updateStatement.setInt(7,client.getId());
             updateStatement.executeUpdate();
 
 
@@ -240,7 +278,7 @@ public class ClientDAO {
 
             while(rs.next())
             {
-                dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("username"),rs.getString("nume"),rs.getString("adresa"),rs.getString("email"),Integer.toString(rs.getInt("varsta"))};
+                dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("username"),rs.getString("nume"),rs.getString("adresa"),rs.getString("email"),Integer.toString(rs.getInt("varsta")),Boolean.toString(rs.getBoolean("loial"))};
                 elemente.add(dateTabel);
             }
 

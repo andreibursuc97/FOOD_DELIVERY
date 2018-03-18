@@ -52,6 +52,16 @@ public class VeziClienti extends JFrame {
         istoricCosuriButton.addActionListener(e);
     }
 
+    public void setLoialButon(ActionListener e)
+    {
+        loialButon.addActionListener(e);
+    }
+
+    public void setObisnuitButton(ActionListener e)
+    {
+        obisnuitButton.addActionListener(e);
+    }
+
     public JTextField getIdField() {
         return idField;
     }
@@ -166,7 +176,7 @@ public class VeziClienti extends JFrame {
     }
 
     public void modelUpdate() {
-        String[] columnNames = {"Id", "Username", "Nume", "Adresa", "Email", "Varsta"};
+        String[] columnNames = {"Id", "Username", "Nume", "Adresa", "Email", "Varsta", "Loial"};
 
         //ListSelectionModel listSelectionModel;
         //JTableHeader=new JTableHeader()

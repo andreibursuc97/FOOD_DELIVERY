@@ -25,9 +25,10 @@ public class Controller {
     private VeziClienti veziClienti;
     private MeniuAdmin meniuAdmin;
     private ListaProduseAdmin listaProduseAdmin;
+    private AdminIstoricCosuri adminIstoricCosuri;
 
     public Controller(Logare logare,Meniu meniu,DateClient dateClient,CosCurent cosCurent,ListaProduse listaProduse,ContNou contNou,ModificaProdus modificaProdus,AdaugaProdus adaugaProdus,IstoricCosuri istoricCosuri,VeziClienti veziClienti,
-    MeniuAdmin meniuAdmin,ListaProduseAdmin listaProduseAdmin)
+    MeniuAdmin meniuAdmin,ListaProduseAdmin listaProduseAdmin,AdminIstoricCosuri adminIstoricCosuri)
     {
         this.logare=logare;
         logare.setVisible(true);
@@ -60,12 +61,18 @@ public class Controller {
         meniu.setIstoricCosuriButton(new ButonIstoricCosuri());
         this.veziClienti=veziClienti;
         veziClienti.setDateClientButton(new ButonAdminVeziDate());
+        veziClienti.setIstoricCosuriButton(new AdmiButonIstoricCosuri());
+        veziClienti.setLoialButon(new ButonLoial());
+        veziClienti.setObisnuitButton(new ButonObisnuit());
         //logare.setLogareAdminButon(new ButonVeziClienti());
         this.meniuAdmin=meniuAdmin;
         this.meniuAdmin.setDelogareButton(new ButonDelogareAdminListener());
         this.meniuAdmin.setDateClientiButton(new ButonVeziClienti());
         this.meniuAdmin.setDateProduseButton(new ButonVeziProduseAdminListener());
         this.listaProduseAdmin=listaProduseAdmin;
+        listaProduseAdmin.setAdaugaProdusButton(new ButonVeziAdaugaProdus());
+        listaProduseAdmin.setModificaProdusButton(new ButonActualizareProdus());
+        this.adminIstoricCosuri=adminIstoricCosuri;
     }
 
     public class ButonVeziDate implements ActionListener{
@@ -81,6 +88,10 @@ public class Controller {
             dateClient.getEmailField().setText(client.getEmail());
             dateClient.getVarstaField().setText(Integer.toString(client.getVarsta()));
             dateClient.getParolaField().setText(client.getParola());
+            if(client.isLoial())
+                dateClient.getLoialField().setText("Da");
+            else
+                dateClient.getLoialField().setText("Nu");
             dateClient.setVisible(true);
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -128,7 +139,47 @@ public class Controller {
                 dateClient.getEmailField().setText(client.getEmail());
                 dateClient.getVarstaField().setText(Integer.toString(client.getVarsta()));
                 dateClient.getParolaField().setText(client.getParola());
+
+                if(client.isLoial())
+                    dateClient.getLoialField().setText("Da");
+                else
+                    dateClient.getLoialField().setText("Nu");
+
                 dateClient.setVisible(true);
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+
+    public class ButonLoial implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+            try{
+                ClientBLL clientBLL=new ClientBLL();
+                int id=Integer.parseInt(veziClienti.getIdField().getText());
+                Client client=clientBLL.findClientById(id);
+                client.setLoial(true);
+                clientBLL.update(client);
+                veziClienti.modelUpdate();
+                dateClient.getLoialField().setText("Da");
+                JOptionPane.showMessageDialog(null,"Clientul a fost setat ca loial!");
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+
+    public class ButonObisnuit implements ActionListener{
+        public void actionPerformed(ActionEvent e) {
+            try{
+                ClientBLL clientBLL=new ClientBLL();
+                int id=Integer.parseInt(veziClienti.getIdField().getText());
+                Client client=clientBLL.findClientById(id);
+                client.setLoial(false);
+                clientBLL.update(client);
+                veziClienti.modelUpdate();
+                dateClient.getLoialField().setText("Nu");
+                JOptionPane.showMessageDialog(null,"Clientul nu mai este setat ca loial!");
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
@@ -219,6 +270,11 @@ public class Controller {
                 ClientBLL clientBLL = new ClientBLL();
                 clientBLL.logare(username, parola);
                 //Meniu meniu = new Meniu();
+                Client client=clientBLL.findByUsername(username);
+                if(client.isLoial())
+                    cosCurent.getReducereField().setText("Clientul beneficiaza de reducere de 5%!");
+                else
+                    cosCurent.getReducereField().setText("Clientul nu beneficiaza de reduceri!");
                 meniu.setVisible(true);
                 logare.setVisible(false);
 
@@ -368,7 +424,7 @@ public class Controller {
     public class ButonActualizareProdus implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
-                int id = Integer.parseInt(listaProduse.getIdField().getText());
+                int id = Integer.parseInt(listaProduseAdmin.getIdField().getText());
                 ProdusBLL produsBLL=new ProdusBLL();
                 Produs produs=produsBLL.findProdusById(id);
                 modificaProdus.getIdField().setText(Integer.toString(produs.getId()));
@@ -420,6 +476,18 @@ public class Controller {
         }
     }
 
+    public class AdmiButonIstoricCosuri implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            adminIstoricCosuri.setId(Integer.parseInt(veziClienti.getIdField().getText()));
+            adminIstoricCosuri.modelUpdate();
+            adminIstoricCosuri.setVisible(true);
+
+        }
+    }
+
     public class ButonActualizareDateProdus implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
@@ -432,6 +500,9 @@ public class Controller {
 
                 produsBLL.update(produs);
                 listaProduse.modelUpdate();
+                listaProduse.getTable1().setModel(listaProduse.getModel());
+                listaProduseAdmin.modelUpdate();
+                listaProduseAdmin.getTable1().setModel(listaProduseAdmin.getModel());
                 //JOptionPane.showMessageDialog(null, "Datele tale au fost actualizate cu succes!");
 
             } catch (IllegalArgumentException ex) {

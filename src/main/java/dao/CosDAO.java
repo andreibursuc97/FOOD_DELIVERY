@@ -24,9 +24,11 @@ public class CosDAO {
     private static final String pretCosString;
     private static final String dateCosString;
     private static final String dateCos2String;
+    private static final String adminDateCosString;
     private static final String sumString;
     private static final String updatePretCosString;
     private static final String cautaCosString;
+
 
 
     static {
@@ -40,6 +42,7 @@ public class CosDAO {
         pretCosString="Select pret_total from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
         dateCosString="Select id,client_id,data_creare,pret_total from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
         dateCos2String="Select id,client_id,data_creare,pret_total from cos where comanda_finalizata=true and client_id=(select id from clienti where logat=true)";
+        adminDateCosString="Select id,client_id,data_creare,pret_total from cos where client_id=?";
 
     }
 
@@ -47,10 +50,12 @@ public class CosDAO {
     {
         Connection dbConnection= ConnectionFactory.getConnection();
         PreparedStatement insertStatement=null;
+
         int insertedId=-1;
 
         try{
             insertStatement=dbConnection.prepareStatement(insertStatementString, Statement.RETURN_GENERATED_KEYS);
+
 
             DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             DateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -221,6 +226,36 @@ public class CosDAO {
             while(rs.next())
             {
                 dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("data_creare"),Integer.toString(rs.getInt("pret_total"))};
+                elemente.add(dateTabel);
+            }
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        }finally {
+            ConnectionFactory.close(dateCosStatement);
+            ConnectionFactory.close(dbConnection);
+            ConnectionFactory.close(rs);
+        }
+
+        return elemente;
+    }
+
+    public static ArrayList<String[]> adminVeziCosuri(int id)
+    {
+        String[] dateTabel;
+        dateTabel= new String[40];
+        Connection dbConnection= ConnectionFactory.getConnection();
+        PreparedStatement dateCosStatement=null;
+        ResultSet rs=null;
+        ArrayList<String[]> elemente=new ArrayList<String[]>();
+        try{
+            dateCosStatement=dbConnection.prepareStatement(adminDateCosString);
+            dateCosStatement.setInt(1,id);
+            rs=dateCosStatement.executeQuery();
+            int i=0;
+            while(rs.next())
+            {
+                dateTabel=new String[]{Integer.toString(rs.getInt("id")),Integer.toString(rs.getInt("client_id")),rs.getString("data_creare"),Integer.toString(rs.getInt("pret_total"))};
                 elemente.add(dateTabel);
             }
         }catch (SQLException e) {

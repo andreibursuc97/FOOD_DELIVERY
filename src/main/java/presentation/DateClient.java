@@ -1,13 +1,10 @@
 package presentation;
 
-import bll.ClientBLL;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import model.Client;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
@@ -25,12 +22,13 @@ public class DateClient extends JFrame {
     private JTextField varstaField;
     private JTextField parolaField;
     private JTextField emailField;
+    private JTextField loialField;
 
 
     public DateClient() {
         $$$setupUI$$$();
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        this.setSize(380, 350);
+        this.setSize(380, 380);
         this.setLocationRelativeTo(null);
         this.setContentPane(panelPrincipal);
 
@@ -64,6 +62,10 @@ public class DateClient extends JFrame {
 
     public JTextField getEmailField() {
         return emailField;
+    }
+
+    public JTextField getLoialField() {
+        return loialField;
     }
 
     public void setActualizareDateButton(ActionListener e) {
@@ -103,7 +105,7 @@ public class DateClient extends JFrame {
      */
     private void $$$setupUI$$$() {
         panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new GridLayoutManager(8, 2, new Insets(20, 10, 20, 10), 10, -1));
+        panelPrincipal.setLayout(new GridLayoutManager(9, 2, new Insets(20, 10, 20, 10), 10, -1));
         panelPrincipal.setBackground(new Color(-5404120));
         panelPrincipal.setMinimumSize(new Dimension(420, 350));
         idField = new JTextField();
@@ -150,7 +152,7 @@ public class DateClient extends JFrame {
         actualizareDateButton.setHorizontalAlignment(0);
         actualizareDateButton.setHorizontalTextPosition(0);
         actualizareDateButton.setText("Actualizare date");
-        panelPrincipal.add(actualizareDateButton, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(130, 20), new Dimension(300, 40), 0, false));
+        panelPrincipal.add(actualizareDateButton, new GridConstraints(8, 1, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(130, 20), new Dimension(300, 40), 0, false));
         final JLabel label6 = new JLabel();
         Font label6Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label6.getFont());
         if (label6Font != null) label6.setFont(label6Font);
@@ -165,6 +167,14 @@ public class DateClient extends JFrame {
         panelPrincipal.add(label7, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
         emailField = new JTextField();
         panelPrincipal.add(emailField, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
+        final JLabel label8 = new JLabel();
+        Font label8Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label8.getFont());
+        if (label8Font != null) label8.setFont(label8Font);
+        label8.setText("Loial");
+        panelPrincipal.add(label8, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
+        loialField = new JTextField();
+        loialField.setEditable(false);
+        panelPrincipal.add(loialField, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
     }
 
     /**

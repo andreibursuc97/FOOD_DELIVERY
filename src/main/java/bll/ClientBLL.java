@@ -30,6 +30,11 @@ public class ClientBLL {
         return st;
     }
 
+    public static Client findByUsername(String username)
+    {
+        return ClientDAO.findByUsername(username);
+    }
+
     public int insert(Client client) {
         validators.add(new UsernameValidator());
         for (Validator<Client> v : validators) {

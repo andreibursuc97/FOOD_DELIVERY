@@ -8,15 +8,16 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ListaProduseAdmin extends JFrame {
     private JPanel panel1;
     private JScrollPane ScrollPane;
     private JTable table1;
-    private JButton adaugaInCosButton;
-    private JTextField cantitateField;
+    private JButton adaugaProdusButton;
     private JTextField idField;
+    private JButton modificaProdusButton;
 
     private MyModel model;
     private String[] selectedData;
@@ -37,10 +38,10 @@ public class ListaProduseAdmin extends JFrame {
         this.setLocationRelativeTo(null);
         this.setContentPane(panel1);
         this.setSize(600, 400);
-        //adaugaInCosButton.addActionListener(new ButonAdaugaInCos());
+        //adaugaProdusButton.addActionListener(new ButonAdaugaInCos());
 
 
-        this.setResizable(false);
+        //this.setResizable(false);
     }
 
     private void createUIComponents() {
@@ -58,6 +59,10 @@ public class ListaProduseAdmin extends JFrame {
 
         ScrollPane = new JScrollPane(table1);
 
+    }
+
+    public JTextField getIdField() {
+        return idField;
     }
 
     public void modelUpdate() {
@@ -87,6 +92,14 @@ public class ListaProduseAdmin extends JFrame {
 
     public void setModel(MyModel model) {
         this.model = model;
+    }
+
+    public void setAdaugaProdusButton(ActionListener e) {
+        adaugaProdusButton.addActionListener(e);
+    }
+
+    public void setModificaProdusButton(ActionListener e) {
+        modificaProdusButton.addActionListener(e);
     }
 
     /**
@@ -136,20 +149,21 @@ public class ListaProduseAdmin extends JFrame {
         final JLabel label1 = new JLabel();
         label1.setText("Id Produs");
         panel3.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        final JLabel label2 = new JLabel();
-        label2.setText("Cantitate");
-        panel3.add(label2, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        adaugaInCosButton = new JButton();
-        adaugaInCosButton.setBackground(new Color(-11225979));
-        Font adaugaInCosButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, adaugaInCosButton.getFont());
-        if (adaugaInCosButtonFont != null) adaugaInCosButton.setFont(adaugaInCosButtonFont);
-        adaugaInCosButton.setText("Adauga in cos");
-        panel3.add(adaugaInCosButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
-        cantitateField = new JTextField();
-        panel3.add(cantitateField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
+        adaugaProdusButton = new JButton();
+        adaugaProdusButton.setBackground(new Color(-11225979));
+        Font adaugaProdusButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, adaugaProdusButton.getFont());
+        if (adaugaProdusButtonFont != null) adaugaProdusButton.setFont(adaugaProdusButtonFont);
+        adaugaProdusButton.setText("Adauga produs");
+        panel3.add(adaugaProdusButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
         idField = new JTextField();
         idField.setEditable(false);
         panel3.add(idField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
+        modificaProdusButton = new JButton();
+        modificaProdusButton.setBackground(new Color(-11225979));
+        Font modificaProdusButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, modificaProdusButton.getFont());
+        if (modificaProdusButtonFont != null) modificaProdusButton.setFont(modificaProdusButtonFont);
+        modificaProdusButton.setText("Modifica produs");
+        panel3.add(modificaProdusButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
     }
 
     class SharedListSelectionHandler implements ListSelectionListener {

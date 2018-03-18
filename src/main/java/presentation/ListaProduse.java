@@ -42,7 +42,7 @@ public class ListaProduse extends JFrame {
         //adaugaInCosButton.addActionListener(new ButonAdaugaInCos());
 
 
-        this.setResizable(false);
+        //this.setResizable(false);
     }
 
     /*public void setModificaButton(ActionListener e) {
