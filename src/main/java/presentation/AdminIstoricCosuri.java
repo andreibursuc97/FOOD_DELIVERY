@@ -53,7 +53,7 @@ public class AdminIstoricCosuri extends JFrame {
     }
 
     public void modelUpdate() {
-        String[] columnNames = {"Id", "Id Client", "Data", "Pret total"};
+        String[] columnNames = {"Id", "Id Client", "Data", "Pret total", "Mod de plata"};
 
         //ListSelectionModel listSelectionModel;
         //JTableHeader=new JTableHeader()

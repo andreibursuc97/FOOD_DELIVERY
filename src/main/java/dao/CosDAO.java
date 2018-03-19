@@ -38,11 +38,11 @@ public class CosDAO {
         updatePretCosString="update cos set pret_total=? where id=?";
         cautaCosString="select pret_total,client_id,data_creare,comanda_finalizata from cos where id=?";
         getIdCosString="select Id from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
-        finalizareComandaString="update cos set comanda_finalizata=true where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
+        finalizareComandaString="update cos set comanda_finalizata=true,cash=?,card=?,pret_total=? where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
         pretCosString="Select pret_total from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
-        dateCosString="Select id,client_id,data_creare,pret_total from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
-        dateCos2String="Select id,client_id,data_creare,pret_total from cos where comanda_finalizata=true and client_id=(select id from clienti where logat=true)";
-        adminDateCosString="Select id,client_id,data_creare,pret_total from cos where client_id=?";
+        dateCosString="Select id,client_id,data_creare,pret_total,cash,card from cos where comanda_finalizata=false and client_id=(select id from clienti where logat=true)";
+        dateCos2String="Select id,client_id,data_creare,pret_total,card from cos where comanda_finalizata=true and client_id=(select id from clienti where logat=true)";
+        adminDateCosString="Select id,client_id,data_creare,pret_total,cash,card from cos where client_id=?";
 
     }
 
@@ -153,7 +153,7 @@ public class CosDAO {
 
 
 
-    public static void finalizareComanda()
+    public static void finalizareComanda(Boolean card,float pret_final)
     {
         Connection dbConnection= ConnectionFactory.getConnection();
         PreparedStatement finalizareComandaStatement=null;
@@ -169,6 +169,19 @@ public class CosDAO {
             }
 
             finalizareComandaStatement=dbConnection.prepareStatement(finalizareComandaString);
+            if(card)
+            {
+                finalizareComandaStatement.setBoolean(1,false);
+                finalizareComandaStatement.setBoolean(2,true);
+            }
+            else
+            {
+                finalizareComandaStatement.setBoolean(1,true);
+                finalizareComandaStatement.setBoolean(2,false);
+            }
+
+            finalizareComandaStatement.setFloat(3,pret_final);
+
             finalizareComandaStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -225,7 +238,10 @@ public class CosDAO {
             int i=0;
             while(rs.next())
             {
-                dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("data_creare"),Integer.toString(rs.getInt("pret_total"))};
+                if(rs.getBoolean("card"))
+                    dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("data_creare"),Integer.toString(rs.getInt("pret_total")),"Card"};
+                else
+                    dateTabel=new String[]{Integer.toString(rs.getInt("id")),rs.getString("data_creare"),Integer.toString(rs.getInt("pret_total")),"Cash"};
                 elemente.add(dateTabel);
             }
         }catch (SQLException e) {
@@ -255,7 +271,10 @@ public class CosDAO {
             int i=0;
             while(rs.next())
             {
-                dateTabel=new String[]{Integer.toString(rs.getInt("id")),Integer.toString(rs.getInt("client_id")),rs.getString("data_creare"),Integer.toString(rs.getInt("pret_total"))};
+                if(rs.getBoolean("card"))
+                    dateTabel=new String[]{Integer.toString(rs.getInt("id")),Integer.toString(rs.getInt("client_id")),rs.getString("data_creare"),Integer.toString(rs.getInt("pret_total")),"Card"};
+                else
+                    dateTabel=new String[]{Integer.toString(rs.getInt("id")),Integer.toString(rs.getInt("client_id")),rs.getString("data_creare"),Integer.toString(rs.getInt("pret_total")),"Cash"};
                 elemente.add(dateTabel);
             }
         }catch (SQLException e) {

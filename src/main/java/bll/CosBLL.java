@@ -2,6 +2,7 @@ package bll;
 
 import bll.validators.ClientLogatValidator;
 import bll.validators.CosNefinalizatValidator;
+import bll.validators.ExistaCosCreat;
 import bll.validators.Validator;
 import dao.CosDAO;
 import model.Cos;
@@ -55,9 +56,11 @@ public class CosBLL {
         return CosDAO.pretCos();
     }
 
-    public void finalizareComanda()
+    public void finalizareComanda(Boolean card,float pret_final)
     {
-        CosDAO.finalizareComanda();
+        Validator<Cos> v=new ExistaCosCreat();
+        v.validate(new Cos());
+        CosDAO.finalizareComanda(card,pret_final);
     }
 
     public ArrayList<String[]> veziCosuri()

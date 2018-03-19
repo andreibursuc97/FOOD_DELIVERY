@@ -1,6 +1,7 @@
 package presentation;
 
 import bll.*;
+import model.Card;
 import model.Client;
 import model.Produs;
 
@@ -26,9 +27,10 @@ public class Controller {
     private MeniuAdmin meniuAdmin;
     private ListaProduseAdmin listaProduseAdmin;
     private AdminIstoricCosuri adminIstoricCosuri;
+    private ModPlata modPlata;
 
     public Controller(Logare logare,Meniu meniu,DateClient dateClient,CosCurent cosCurent,ListaProduse listaProduse,ContNou contNou,ModificaProdus modificaProdus,AdaugaProdus adaugaProdus,IstoricCosuri istoricCosuri,VeziClienti veziClienti,
-    MeniuAdmin meniuAdmin,ListaProduseAdmin listaProduseAdmin,AdminIstoricCosuri adminIstoricCosuri)
+    MeniuAdmin meniuAdmin,ListaProduseAdmin listaProduseAdmin,AdminIstoricCosuri adminIstoricCosuri,ModPlata modPlata)
     {
         this.logare=logare;
         logare.setVisible(true);
@@ -44,7 +46,7 @@ public class Controller {
 
         meniu.setCosCurentButton(new ButonVeziCosCurent());
         this.cosCurent=cosCurent;
-        this.cosCurent.setFinalizareButton(new FinalizareComanda());
+        this.cosCurent.setPlataButon(new ButonPlataListener());
         this.cosCurent.setStergeProdusDinCosButton(new StergeComanda());
         this.cosCurent.setModificaCantitateButton(new ModificaComanda());
         listaProduse.setAdaugaInCosButton(new ButonAdaugaInCos());
@@ -73,6 +75,9 @@ public class Controller {
         listaProduseAdmin.setAdaugaProdusButton(new ButonVeziAdaugaProdus());
         listaProduseAdmin.setModificaProdusButton(new ButonActualizareProdus());
         this.adminIstoricCosuri=adminIstoricCosuri;
+        this.modPlata=modPlata;
+        modPlata.setEfectueazaPlataButton(new FinalizareComanda());
+
     }
 
     public class ButonVeziDate implements ActionListener{
@@ -190,17 +195,24 @@ public class Controller {
     public class FinalizareComanda implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             try {
-
-
                 CosBLL cosBLL = new CosBLL();
-                cosBLL.finalizareComanda();
+                CardBLL cardBLL= new CardBLL();
+                Card card=new Card(modPlata.getNumeField().getText(),modPlata.getNumarCardField().getText(),modPlata.getDataExpirareField().getText(),new String(modPlata.getCodField().getPassword()));
+                if(modPlata.getCashRadioButton().isSelected() || cardBLL.check(card) ) {
+                    if (modPlata.getCardRadioButton().isSelected()) {
 
-                //ListaProduse.this.setVisible(false);
-                cosCurent.modelUpdate();
-                cosCurent.getTable1().setModel(cosCurent.getModel());
-                //ScrollPane.add(table1);
-                //ListaProduse.this.setVisible(true);
-                JOptionPane.showMessageDialog(null, "Comanda a fost finalizata!");
+                        cosBLL.finalizareComanda(true, Float.parseFloat(modPlata.getPlataField().getText()));
+                    } else {
+                        cosBLL.finalizareComanda(false, Float.parseFloat(modPlata.getPlataField().getText()));
+                    }
+                    //ListaProduse.this.setVisible(false);
+                    cosCurent.modelUpdate();
+                    cosCurent.getTable1().setModel(cosCurent.getModel());
+                    istoricCosuri.modelUpdate();
+                    //ScrollPane.add(table1);
+                    //ListaProduse.this.setVisible(true);
+                    JOptionPane.showMessageDialog(null, "Comanda a fost finalizata!");
+                }
 
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -223,9 +235,15 @@ public class Controller {
                 cosCurent.getTable1().setModel(cosCurent.getModel());
                 listaProduse.modelUpdate();
                 listaProduse.getTable1().setModel(listaProduse.getModel());
+
+                if(cosCurent.getReducereField().getText().equals("Clientul beneficiaza de reducere de 5%!"))
+                    modPlata.getPlataField().setText(Double.toString(0.95*Integer.parseInt(cosCurent.getPretField().getText())));
+                else
+                    modPlata.getPlataField().setText(cosCurent.getPretField().getText());
+
                 //ScrollPane.add(table1);
                 //ListaProduse.this.setVisible(true);
-                JOptionPane.showMessageDialog(null, "Comanda a fost finalizata!");
+                JOptionPane.showMessageDialog(null, "Comanda a fost stearsa!");
 
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -247,9 +265,15 @@ public class Controller {
                 cosCurent.getTable1().setModel(cosCurent.getModel());
                 listaProduse.modelUpdate();
                 listaProduse.getTable1().setModel(listaProduse.getModel());
+
+                if(cosCurent.getReducereField().getText().equals("Clientul beneficiaza de reducere de 5%!"))
+                    modPlata.getPlataField().setText(Double.toString(0.95*Integer.parseInt(cosCurent.getPretField().getText())));
+                else
+                    modPlata.getPlataField().setText(cosCurent.getPretField().getText());
+
                 //ScrollPane.add(table1);
                 //ListaProduse.this.setVisible(true);
-                JOptionPane.showMessageDialog(null, "Comanda a fost finalizata!");
+                JOptionPane.showMessageDialog(null, "Cantitatea de produse a fost modificata!");
 
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -313,6 +337,25 @@ public class Controller {
 
                 meniu.setVisible(false);
                 logare.setVisible(true);
+            } catch (IllegalArgumentException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+
+    public class ButonPlataListener implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+
+            try {
+                //ClientBLL clientBLL = new ClientBLL();
+                if(cosCurent.getReducereField().getText().equals("Clientul beneficiaza de reducere de 5%!"))
+                    modPlata.getPlataField().setText(Double.toString(0.95*Integer.parseInt(cosCurent.getPretField().getText())));
+                else
+                    modPlata.getPlataField().setText(cosCurent.getPretField().getText());
+
+                modPlata.setVisible(true);
+                //logare.setVisible(true);
             } catch (IllegalArgumentException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
@@ -405,10 +448,17 @@ public class Controller {
                 //ListaProduse.this.setVisible(false);
                 listaProduse.modelUpdate();
                 listaProduse.getTable1().setModel(listaProduse.getModel());
+                //listaProduseAdmin.modelUpdate();
                 //ScrollPane.add(table1);
                 //cosCurent=new CosCurent();
                 cosCurent.modelUpdate();
                 cosCurent.setVisible(true);
+
+                if(cosCurent.getReducereField().getText().equals("Clientul beneficiaza de reducere de 5%!"))
+                    modPlata.getPlataField().setText(Double.toString(0.95*Integer.parseInt(cosCurent.getPretField().getText())));
+                else
+                    modPlata.getPlataField().setText(cosCurent.getPretField().getText());
+
                 //ListaProduse.this.setVisible(true);
                 JOptionPane.showMessageDialog(null, "Comanda a fost adaugata in cos!");
 
@@ -527,7 +577,7 @@ public class Controller {
                 ProdusBLL produsBLL = new ProdusBLL();
 
                 produsBLL.insert(produs);
-                listaProduse.modelUpdate();
+                listaProduseAdmin.modelUpdate();
                 //JOptionPane.showMessageDialog(null, "Datele tale au fost actualizate cu succes!");
 
             } catch (IllegalArgumentException ex) {

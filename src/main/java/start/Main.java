@@ -46,9 +46,10 @@ public class Main {
         MeniuAdmin meniuAdmin=new MeniuAdmin();
         ListaProduseAdmin listaProduseAdmin=new ListaProduseAdmin();
         AdminIstoricCosuri adminIstoricCosuri=new AdminIstoricCosuri();
+        ModPlata modPlata=new ModPlata();
         //listaProduse.setVisible(true);
         //dateClient.setVisible(true);
-        Controller controller=new Controller(logare,meniu,dateClient,cosCurent,listaProduse,contNou,modificaProdus,adaugaProdus,istoricCosuri,veziClienti,meniuAdmin,listaProduseAdmin,adminIstoricCosuri);
+        Controller controller=new Controller(logare,meniu,dateClient,cosCurent,listaProduse,contNou,modificaProdus,adaugaProdus,istoricCosuri,veziClienti,meniuAdmin,listaProduseAdmin,adminIstoricCosuri,modPlata);
 
 
 

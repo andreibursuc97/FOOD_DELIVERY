@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class CosCurent extends JFrame {
     private JPanel panel1;
     private JTable table1;
-    private JButton finalizareButton;
+    private JButton plataButon;
     private JScrollPane scrollPane1;
     private JTextField pretField;
     private JButton modificaCantitateButton;
@@ -43,10 +43,10 @@ public class CosCurent extends JFrame {
 
         this.setLocationRelativeTo(null);
         this.setContentPane(panel1);
-        this.setSize(600, 400);
+        this.setSize(700, 400);
 
 
-        //finalizareButton.addActionListener();
+        //plataButon.addActionListener();
     }
 
     /**
@@ -68,8 +68,8 @@ public class CosCurent extends JFrame {
         return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
-    public void setFinalizareButton(ActionListener e) {
-        finalizareButton.addActionListener(e);
+    public void setPlataButon(ActionListener e) {
+        plataButon.addActionListener(e);
     }
 
     public JTable getTable1() {
@@ -94,6 +94,10 @@ public class CosCurent extends JFrame {
 
     public JTextField getCantitateField() {
         return cantitateField;
+    }
+
+    public JTextField getPretField() {
+        return pretField;
     }
 
     public void setModificaCantitateButton(ActionListener e) {
@@ -131,22 +135,22 @@ public class CosCurent extends JFrame {
     private void $$$setupUI$$$() {
         createUIComponents();
         panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(5, 17, new Insets(20, 10, 20, 10), -1, -1));
+        panel1.setLayout(new GridLayoutManager(5, 19, new Insets(20, 10, 20, 10), -1, -1));
         panel1.setBackground(new Color(-5404120));
         scrollPane1.setBackground(new Color(-11225979));
         Font scrollPane1Font = this.$$$getFont$$$("Comic Sans MS", -1, 14, scrollPane1.getFont());
         if (scrollPane1Font != null) scrollPane1.setFont(scrollPane1Font);
-        panel1.add(scrollPane1, new GridConstraints(0, 0, 1, 17, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel1.add(scrollPane1, new GridConstraints(0, 0, 1, 19, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         table1.setBackground(new Color(-11225979));
         scrollPane1.setViewportView(table1);
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(1, 6, new Insets(20, 10, 10, 10), -1, -1));
         panel2.setBackground(new Color(-5404120));
-        panel1.add(panel2, new GridConstraints(2, 0, 1, 17, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panel1.add(panel2, new GridConstraints(2, 0, 1, 19, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final JLabel label1 = new JLabel();
         Font label1Font = this.$$$getFont$$$("Comic Sans MS", -1, 14, label1.getFont());
         if (label1Font != null) label1.setFont(label1Font);
-        label1.setText("Pret total");
+        label1.setText("Pret fara reducere");
         panel2.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         pretField.setEditable(false);
         panel2.add(pretField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(100, 20), new Dimension(200, 50), 0, false));
@@ -165,12 +169,16 @@ public class CosCurent extends JFrame {
         if (label3Font != null) label3.setFont(label3Font);
         label3.setText("Cantitate noua");
         panel2.add(label3, new GridConstraints(0, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        finalizareButton = new JButton();
-        finalizareButton.setBackground(new Color(-11225979));
-        Font finalizareButtonFont = this.$$$getFont$$$("Constantia", -1, 14, finalizareButton.getFont());
-        if (finalizareButtonFont != null) finalizareButton.setFont(finalizareButtonFont);
-        finalizareButton.setText("Finalizare comanda");
-        panel1.add(finalizareButton, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        plataButon = new JButton();
+        plataButon.setBackground(new Color(-11225979));
+        Font plataButonFont = this.$$$getFont$$$("Constantia", -1, 14, plataButon.getFont());
+        if (plataButonFont != null) plataButon.setFont(plataButonFont);
+        plataButon.setText("Plateste");
+        panel1.add(plataButon, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        reducereField = new JTextField();
+        reducereField.setEditable(false);
+        reducereField.setText("");
+        panel1.add(reducereField, new GridConstraints(1, 1, 1, 2, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 20), new Dimension(280, 50), 0, false));
         modificaCantitateButton = new JButton();
         modificaCantitateButton.setBackground(new Color(-11225979));
         Font modificaCantitateButtonFont = this.$$$getFont$$$("Constantia", -1, 14, modificaCantitateButton.getFont());
@@ -183,10 +191,6 @@ public class CosCurent extends JFrame {
         if (stergeProdusDinCosButtonFont != null) stergeProdusDinCosButton.setFont(stergeProdusDinCosButtonFont);
         stergeProdusDinCosButton.setText("Sterge produs din cos");
         panel1.add(stergeProdusDinCosButton, new GridConstraints(4, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        reducereField = new JTextField();
-        reducereField.setEditable(false);
-        reducereField.setText("");
-        panel1.add(reducereField, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(250, 20), new Dimension(280, 50), 0, false));
     }
 
     /**

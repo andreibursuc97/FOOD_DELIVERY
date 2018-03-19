@@ -19,6 +19,8 @@ public class Cos {
     private int clientId;
     private boolean comandaFinalizata;
     private String data;
+    private boolean cash;
+    private boolean card;
 
     public Cos(int id, int client_id,String data,float pretTotal) {
         this.id = id;
@@ -26,6 +28,8 @@ public class Cos {
         this.clientId = client_id;
         this.comandaFinalizata = false;
         this.data=data;
+        this.cash=false;
+        this.card=false;
     }
 
     public Cos()
@@ -88,7 +92,7 @@ public class Cos {
 
             out.println("--------------------------------------------------------------------------------------------------");
 
-            out.println("Total de plata:"+this.getPretTotal()+" lei");
+            out.println("Suma Achitata:"+this.getPretTotal()+" lei");
 
             out.println("--------------------------------------------------------------------------------------------------");
 
