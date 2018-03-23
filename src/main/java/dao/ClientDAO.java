@@ -3,6 +3,9 @@ package dao;
 import model.Client;
 import connection.ConnectionFactory;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -27,7 +30,7 @@ public class ClientDAO {
     static {
         findStatementString = "SELECT * FROM clienti where id=?";
         insertStatementString = "insert into clienti(username,nume,adresa,email,varsta,parola,loial)"+" VALUES (?,?,?,?,?,?,false)";
-        updateStatementString = "update clienti"+" set nume=?,adresa=?,email=?,varsta=?,parola=?,loial=? where id=?";
+        updateStatementString = "update clienti"+" set nume=?,adresa=?,email=?,varsta=?,loial=? where id=?";
         deleteStatementString = "delete from clienti"+" where id=?";
         logareString="update clienti set logat=true where username=?";
         delogareString="update clienti set logat=false where logat=true";
@@ -55,9 +58,9 @@ public class ClientDAO {
             String adresa=rs.getString("adresa");
             String email=rs.getString("email");
             int varsta=rs.getInt("varsta");
-            String parola=rs.getString("parola");
+            //String parola=rs.getString("parola");
             boolean loial=rs.getBoolean("loial");
-            toReturn=new Client(clientId,username,nume,adresa,email,varsta,parola,loial);
+            toReturn=new Client(clientId,username,nume,adresa,email,varsta,loial);
 
 
         } catch (SQLException e) {
@@ -89,9 +92,9 @@ public class ClientDAO {
             String adresa=rs.getString("adresa");
             String email=rs.getString("email");
             int varsta=rs.getInt("varsta");
-            String parola=rs.getString("parola");
+            //String parola=rs.getString("parola");
             boolean loial=rs.getBoolean("loial");
-            toReturn=new Client(id,username,nume,adresa,email,varsta,parola,loial);
+            toReturn=new Client(id,username,nume,adresa,email,varsta,loial);
 
 
         } catch (SQLException e) {
@@ -145,7 +148,10 @@ public class ClientDAO {
             insertStatement.setString(3,client.getAdresa());
             insertStatement.setString(4,client.getEmail());
             insertStatement.setInt(5,client.getVarsta());
-            insertStatement.setString(6,client.getParola());
+
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(client.getParola().getBytes(StandardCharsets.UTF_8));
+            insertStatement.setBytes(6,hash);
 
             insertStatement.executeUpdate();
 
@@ -156,7 +162,12 @@ public class ClientDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        }
+          catch(NoSuchAlgorithmException e)
+          {
+              e.printStackTrace();
+          }
+        finally {
             ConnectionFactory.close(insertStatement);
             ConnectionFactory.close(dbConnection);
         }
@@ -178,9 +189,9 @@ public class ClientDAO {
             updateStatement.setString(2,client.getAdresa());
             updateStatement.setString(3,client.getEmail());
             updateStatement.setInt(4,client.getVarsta());
-            updateStatement.setString(5,client.getParola());
-            updateStatement.setBoolean(6,client.isLoial());
-            updateStatement.setInt(7,client.getId());
+            //updateStatement.setString(5,client.getParola());
+            updateStatement.setBoolean(5,client.isLoial());
+            updateStatement.setInt(6,client.getId());
             updateStatement.executeUpdate();
 
 

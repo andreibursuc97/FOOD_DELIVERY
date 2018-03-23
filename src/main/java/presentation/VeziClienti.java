@@ -9,6 +9,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 
 /**
@@ -23,6 +25,7 @@ public class VeziClienti extends JFrame {
     private JButton istoricCosuriButton;
     private JButton loialButon;
     private JButton obisnuitButton;
+    private JButton meniuButton;
     private MyModel model;
     private ListSelectionModel listSelectionModel;
 
@@ -36,12 +39,13 @@ public class VeziClienti extends JFrame {
         listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
         table1.setSelectionModel(listSelectionModel);
         $$$setupUI$$$();
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         // this.setSize(380, 350);
 
-        this.setLocationRelativeTo(null);
+        this.setLocation(650, 300);
         this.setContentPane(panel1);
         this.setSize(600, 400);
+
     }
 
     public void setDateClientButton(ActionListener e) {
@@ -52,14 +56,16 @@ public class VeziClienti extends JFrame {
         istoricCosuriButton.addActionListener(e);
     }
 
-    public void setLoialButon(ActionListener e)
-    {
+    public void setLoialButon(ActionListener e) {
         loialButon.addActionListener(e);
     }
 
-    public void setObisnuitButton(ActionListener e)
-    {
+    public void setObisnuitButton(ActionListener e) {
         obisnuitButton.addActionListener(e);
+    }
+
+    public void setMeniuButton(ActionListener e) {
+        meniuButton.addActionListener(e);
     }
 
     public JTextField getIdField() {
@@ -99,7 +105,7 @@ public class VeziClienti extends JFrame {
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
         panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(3, 2, new Insets(20, 10, 20, 10), -1, -1));
+        panel1.setLayout(new GridLayoutManager(3, 5, new Insets(20, 10, 20, 10), -1, -1));
         panel1.setBackground(new Color(-5404120));
         panel2.add(panel1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         scrollPane1.setBackground(new Color(-11225979));
@@ -109,16 +115,13 @@ public class VeziClienti extends JFrame {
         table1.setBackground(new Color(-11225979));
         table1.setFillsViewportHeight(true);
         scrollPane1.setViewportView(table1);
-        final JLabel label1 = new JLabel();
-        label1.setText("Id");
-        panel1.add(label1, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel3 = new JPanel();
         panel3.setLayout(new GridLayoutManager(5, 2, new Insets(0, 0, 0, 0), -1, -1));
         panel3.setBackground(new Color(-5404120));
-        panel1.add(panel3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        final JLabel label2 = new JLabel();
-        label2.setText("Id Client");
-        panel3.add(label2, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        panel1.add(panel3, new GridConstraints(0, 1, 1, 4, GridConstraints.ANCHOR_NORTH, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        final JLabel label1 = new JLabel();
+        label1.setText("Id Client");
+        panel3.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         dateClientButton = new JButton();
         dateClientButton.setBackground(new Color(-11225979));
         Font dateClientButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, dateClientButton.getFont());
@@ -146,6 +149,12 @@ public class VeziClienti extends JFrame {
         if (istoricCosuriButtonFont != null) istoricCosuriButton.setFont(istoricCosuriButtonFont);
         istoricCosuriButton.setText("Istoric Cosuri");
         panel3.add(istoricCosuriButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
+        meniuButton = new JButton();
+        meniuButton.setBackground(new Color(-11225979));
+        Font meniuButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, meniuButton.getFont());
+        if (meniuButtonFont != null) meniuButton.setFont(meniuButtonFont);
+        meniuButton.setText("Meniu");
+        panel1.add(meniuButton, new GridConstraints(1, 3, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
     }
 
     class SharedListSelectionHandler implements ListSelectionListener {

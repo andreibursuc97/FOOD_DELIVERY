@@ -20,7 +20,6 @@ public class DateClient extends JFrame {
     private JButton actualizareDateButton;
     private JTextField usernameField;
     private JTextField varstaField;
-    private JTextField parolaField;
     private JTextField emailField;
     private JTextField loialField;
 
@@ -56,9 +55,6 @@ public class DateClient extends JFrame {
         return varstaField;
     }
 
-    public JTextField getParolaField() {
-        return parolaField;
-    }
 
     public JTextField getEmailField() {
         return emailField;
@@ -105,7 +101,7 @@ public class DateClient extends JFrame {
      */
     private void $$$setupUI$$$() {
         panelPrincipal = new JPanel();
-        panelPrincipal.setLayout(new GridLayoutManager(9, 2, new Insets(20, 10, 20, 10), 10, -1));
+        panelPrincipal.setLayout(new GridLayoutManager(8, 2, new Insets(20, 10, 20, 10), 10, -1));
         panelPrincipal.setBackground(new Color(-5404120));
         panelPrincipal.setMinimumSize(new Dimension(420, 350));
         idField = new JTextField();
@@ -128,23 +124,23 @@ public class DateClient extends JFrame {
         Font label3Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label3.getFont());
         if (label3Font != null) label3.setFont(label3Font);
         label3.setText("Nume");
-        panelPrincipal.add(label3, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
+        panelPrincipal.add(label3, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
         numeField = new JTextField();
-        panelPrincipal.add(numeField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
+        panelPrincipal.add(numeField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
         final JLabel label4 = new JLabel();
         Font label4Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label4.getFont());
         if (label4Font != null) label4.setFont(label4Font);
         label4.setText("Adresa");
-        panelPrincipal.add(label4, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
+        panelPrincipal.add(label4, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
         adresaField = new JTextField();
-        panelPrincipal.add(adresaField, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
+        panelPrincipal.add(adresaField, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
         final JLabel label5 = new JLabel();
         Font label5Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label5.getFont());
         if (label5Font != null) label5.setFont(label5Font);
         label5.setText("Varsta");
-        panelPrincipal.add(label5, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
+        panelPrincipal.add(label5, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
         varstaField = new JTextField();
-        panelPrincipal.add(varstaField, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
+        panelPrincipal.add(varstaField, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
         actualizareDateButton = new JButton();
         actualizareDateButton.setBackground(new Color(-11225979));
         Font actualizareDateButtonFont = this.$$$getFont$$$("Constantia", -1, 14, actualizareDateButton.getFont());
@@ -152,29 +148,22 @@ public class DateClient extends JFrame {
         actualizareDateButton.setHorizontalAlignment(0);
         actualizareDateButton.setHorizontalTextPosition(0);
         actualizareDateButton.setText("Actualizare date");
-        panelPrincipal.add(actualizareDateButton, new GridConstraints(8, 1, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(130, 20), new Dimension(300, 40), 0, false));
+        panelPrincipal.add(actualizareDateButton, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_SOUTHWEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(130, 20), new Dimension(300, 40), 0, false));
         final JLabel label6 = new JLabel();
         Font label6Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label6.getFont());
         if (label6Font != null) label6.setFont(label6Font);
-        label6.setText("Parola");
-        panelPrincipal.add(label6, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
-        parolaField = new JTextField();
-        panelPrincipal.add(parolaField, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
+        label6.setText("Email");
+        panelPrincipal.add(label6, new GridConstraints(4, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
+        emailField = new JTextField();
+        panelPrincipal.add(emailField, new GridConstraints(4, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
         final JLabel label7 = new JLabel();
         Font label7Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label7.getFont());
         if (label7Font != null) label7.setFont(label7Font);
-        label7.setText("Email");
-        panelPrincipal.add(label7, new GridConstraints(5, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
-        emailField = new JTextField();
-        panelPrincipal.add(emailField, new GridConstraints(5, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
-        final JLabel label8 = new JLabel();
-        Font label8Font = this.$$$getFont$$$("Comic Sans MS", -1, 16, label8.getFont());
-        if (label8Font != null) label8.setFont(label8Font);
-        label8.setText("Loial");
-        panelPrincipal.add(label8, new GridConstraints(7, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
+        label7.setText("Loial");
+        panelPrincipal.add(label7, new GridConstraints(6, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(80, 20), new Dimension(200, 20), 0, false));
         loialField = new JTextField();
         loialField.setEditable(false);
-        panelPrincipal.add(loialField, new GridConstraints(7, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
+        panelPrincipal.add(loialField, new GridConstraints(6, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(200, 30), new Dimension(500, 200), 0, false));
     }
 
     /**

@@ -49,8 +49,9 @@ public class Controller {
         this.cosCurent.setPlataButon(new ButonPlataListener());
         this.cosCurent.setStergeProdusDinCosButton(new StergeComanda());
         this.cosCurent.setModificaCantitateButton(new ModificaComanda());
+        cosCurent.setMeniuButton(new ButonVeziMeniu());
         listaProduse.setAdaugaInCosButton(new ButonAdaugaInCos());
-
+        listaProduse.setMeniuButton(new ButonVeziMeniu());
         this.contNou=contNou;
         logare.setContNouButton(new ButonContNou());
         this.modificaProdus=modificaProdus;
@@ -60,12 +61,14 @@ public class Controller {
         //listaProduse.setAdaugaButton(new ButonVeziAdaugaProdus());
         adaugaProdus.setAdaugaProdusButton(new ButonAdaugaProdus());
         this.istoricCosuri=istoricCosuri;
+        istoricCosuri.setMeniuButton(new ButonVeziMeniu());
         meniu.setIstoricCosuriButton(new ButonIstoricCosuri());
         this.veziClienti=veziClienti;
         veziClienti.setDateClientButton(new ButonAdminVeziDate());
         veziClienti.setIstoricCosuriButton(new AdmiButonIstoricCosuri());
         veziClienti.setLoialButon(new ButonLoial());
         veziClienti.setObisnuitButton(new ButonObisnuit());
+        veziClienti.setMeniuButton(new ButonVeziMeniuAdmin());
         //logare.setLogareAdminButon(new ButonVeziClienti());
         this.meniuAdmin=meniuAdmin;
         this.meniuAdmin.setDelogareButton(new ButonDelogareAdminListener());
@@ -74,6 +77,7 @@ public class Controller {
         this.listaProduseAdmin=listaProduseAdmin;
         listaProduseAdmin.setAdaugaProdusButton(new ButonVeziAdaugaProdus());
         listaProduseAdmin.setModificaProdusButton(new ButonActualizareProdus());
+        listaProduseAdmin.setMeniuButton(new ButonVeziMeniuAdmin());
         this.adminIstoricCosuri=adminIstoricCosuri;
         this.modPlata=modPlata;
         modPlata.setEfectueazaPlataButton(new FinalizareComanda());
@@ -92,7 +96,7 @@ public class Controller {
             dateClient.getAdresaField().setText(client.getAdresa());
             dateClient.getEmailField().setText(client.getEmail());
             dateClient.getVarstaField().setText(Integer.toString(client.getVarsta()));
-            dateClient.getParolaField().setText(client.getParola());
+            //dateClient.getParolaField().setText(client.getParola());
             if(client.isLoial())
                 dateClient.getLoialField().setText("Da");
             else
@@ -113,9 +117,9 @@ public class Controller {
                 String adresa = dateClient.getAdresaField().getText();
                 String email = dateClient.getEmailField().getText();
                 int varsta = Integer.parseInt(dateClient.getVarstaField().getText());
-                String parola = dateClient.getParolaField().getText();
+                //String parola = dateClient.getParolaField().getText();
 
-                Client client = new Client(id, username, nume, adresa, email, varsta, parola);
+                Client client = new Client(id, username, nume, adresa, email, varsta);
                 ClientBLL clientBLL = new ClientBLL();
                 clientBLL.update(client);
                 veziClienti.modelUpdate();
@@ -143,7 +147,7 @@ public class Controller {
                 dateClient.getAdresaField().setText(client.getAdresa());
                 dateClient.getEmailField().setText(client.getEmail());
                 dateClient.getVarstaField().setText(Integer.toString(client.getVarsta()));
-                dateClient.getParolaField().setText(client.getParola());
+                //dateClient.getParolaField().setText(client.getParola());
 
                 if(client.isLoial())
                     dateClient.getLoialField().setText("Da");
@@ -387,6 +391,8 @@ public class Controller {
 
                 //meniu.setVisible(false);
                 listaProduse.setVisible(true);
+                cosCurent.setVisible(true);
+                meniu.setVisible(false);
                 listaProduse.modelUpdate();
                 listaProduse.getTable1().setModel(listaProduse.getModel());
             } catch (IllegalArgumentException ex) {
@@ -404,6 +410,7 @@ public class Controller {
 
                 //meniu.setVisible(false);
                 listaProduseAdmin.setVisible(true);
+                meniuAdmin.setVisible(false);
                 listaProduseAdmin.modelUpdate();
                 listaProduseAdmin.getTable1().setModel(listaProduseAdmin.getModel());
 
@@ -422,7 +429,33 @@ public class Controller {
             cosCurent.modelUpdate();
             cosCurent.getTable1().setModel(cosCurent.getModel());
             cosCurent.setVisible(true);
+            listaProduse.setVisible(true);
+            meniu.setVisible(false);
 
+        }
+    }
+
+    public class ButonVeziMeniu implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            meniu.setVisible(true);
+            listaProduse.setVisible(false);
+            istoricCosuri.setVisible(false);
+            cosCurent.setVisible(false);
+        }
+    }
+
+    public class ButonVeziMeniuAdmin implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            meniuAdmin.setVisible(true);
+            listaProduseAdmin.setVisible(false);
+            veziClienti.setVisible(false);
+            //cos.setVisible(false);
         }
     }
 
@@ -511,6 +544,7 @@ public class Controller {
 
             veziClienti.modelUpdate();
             veziClienti.setVisible(true);
+            meniuAdmin.setVisible(false);
 
         }
     }
@@ -522,9 +556,12 @@ public class Controller {
 
             istoricCosuri.modelUpdate();
             istoricCosuri.setVisible(true);
+            meniu.setVisible(false);
+            //meniu.setVisible(false);
 
         }
     }
+
 
     public class AdmiButonIstoricCosuri implements ActionListener{
 

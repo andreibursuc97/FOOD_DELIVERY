@@ -26,6 +26,7 @@ public class CosCurent extends JFrame {
     private JTextField idField;
     private JTextField cantitateField;
     private JTextField reducereField;
+    private JButton meniuButton;
     private MyModel model;
     private ListSelectionModel listSelectionModel;
 
@@ -38,10 +39,10 @@ public class CosCurent extends JFrame {
         table1.setSelectionModel(listSelectionModel);
         $$$setupUI$$$();
         //$$$setupUI$$$();
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         // this.setSize(380, 350);
-
-        this.setLocationRelativeTo(null);
+        this.setLocation(900, 400);
+        //this.setLocationRelativeTo(null);
         this.setContentPane(panel1);
         this.setSize(700, 400);
 
@@ -86,6 +87,10 @@ public class CosCurent extends JFrame {
 
     public void setStergeProdusDinCosButton(ActionListener e) {
         this.stergeProdusDinCosButton.addActionListener(e);
+    }
+
+    public void setMeniuButton(ActionListener e) {
+        this.meniuButton.addActionListener(e);
     }
 
     public JTextField getIdField() {
@@ -191,6 +196,12 @@ public class CosCurent extends JFrame {
         if (stergeProdusDinCosButtonFont != null) stergeProdusDinCosButton.setFont(stergeProdusDinCosButtonFont);
         stergeProdusDinCosButton.setText("Sterge produs din cos");
         panel1.add(stergeProdusDinCosButton, new GridConstraints(4, 3, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        meniuButton = new JButton();
+        meniuButton.setBackground(new Color(-11225979));
+        Font meniuButtonFont = this.$$$getFont$$$("Constantia", -1, 14, meniuButton.getFont());
+        if (meniuButtonFont != null) meniuButton.setFont(meniuButtonFont);
+        meniuButton.setText("Meniu");
+        panel1.add(meniuButton, new GridConstraints(4, 4, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

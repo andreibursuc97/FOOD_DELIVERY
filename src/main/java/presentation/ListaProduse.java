@@ -21,6 +21,7 @@ public class ListaProduse extends JFrame {
     private JButton adaugaInCosButton;
     private JTextField idField;
     private JTextField cantitateField;
+    private JButton meniuButton;
     private MyModel model;
     private String[] selectedData;
     private ListSelectionModel listSelectionModel;
@@ -33,10 +34,10 @@ public class ListaProduse extends JFrame {
         listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
         table1.setSelectionModel(listSelectionModel);
         $$$setupUI$$$();
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 
-        this.setLocationRelativeTo(null);
+        this.setLocation(250, 400);
         this.setContentPane(panel1);
         this.setSize(600, 400);
         //adaugaInCosButton.addActionListener(new ButonAdaugaInCos());
@@ -112,11 +113,11 @@ public class ListaProduse extends JFrame {
     private void $$$setupUI$$$() {
         createUIComponents();
         panel1 = new JPanel();
-        panel1.setLayout(new GridLayoutManager(4, 2, new Insets(20, 10, 20, 10), -1, -1));
+        panel1.setLayout(new GridLayoutManager(5, 2, new Insets(20, 10, 20, 10), -1, -1));
         panel1.setBackground(new Color(-5404120));
         ScrollPane.setBackground(new Color(-5404120));
         ScrollPane.setForeground(new Color(-5404120));
-        panel1.add(ScrollPane, new GridConstraints(0, 0, 4, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        panel1.add(ScrollPane, new GridConstraints(0, 0, 5, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         table1.setBackground(new Color(-11225979));
         table1.setFillsViewportHeight(true);
         ScrollPane.setViewportView(table1);
@@ -141,6 +142,12 @@ public class ListaProduse extends JFrame {
         idField = new JTextField();
         idField.setEditable(false);
         panel2.add(idField, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, 15), new Dimension(200, 30), 0, false));
+        meniuButton = new JButton();
+        meniuButton.setBackground(new Color(-11225979));
+        Font meniuButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, meniuButton.getFont());
+        if (meniuButtonFont != null) meniuButton.setFont(meniuButtonFont);
+        meniuButton.setText("Meniu");
+        panel1.add(meniuButton, new GridConstraints(3, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
     }
 
     /**
@@ -180,6 +187,10 @@ public class ListaProduse extends JFrame {
 
     public void setAdaugaInCosButton(ActionListener e) {
         this.adaugaInCosButton.addActionListener(e);
+    }
+
+    public void setMeniuButton(ActionListener e) {
+        this.meniuButton.addActionListener(e);
     }
 
     public JTextField getIdField() {

@@ -6,6 +6,7 @@ import com.intellij.uiDesigner.core.GridLayoutManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
@@ -15,6 +16,7 @@ public class IstoricCosuri extends JFrame {
     private JPanel panel1;
     private JScrollPane scrollPane1;
     private JTable table1;
+    private JButton meniuButton;
     private MyModel model;
 
 
@@ -22,10 +24,10 @@ public class IstoricCosuri extends JFrame {
         model = new MyModel();
         $$$setupUI$$$();
         table1 = new JTable();
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         // this.setSize(380, 350);
 
-        this.setLocationRelativeTo(null);
+        this.setLocation(650, 300);
         this.setContentPane(panel1);
         this.setSize(600, 400);
         //finalizareButton.addActionListener(new CosCurent.FinalizareComanda());
@@ -66,6 +68,10 @@ public class IstoricCosuri extends JFrame {
 
 
         //return model;
+    }
+
+    public void setMeniuButton(ActionListener e) {
+        this.meniuButton.addActionListener(e);
     }
 
 
@@ -110,5 +116,11 @@ public class IstoricCosuri extends JFrame {
         table1.setBackground(new Color(-11225979));
         table1.setFillsViewportHeight(true);
         scrollPane1.setViewportView(table1);
+        meniuButton = new JButton();
+        meniuButton.setBackground(new Color(-11225979));
+        Font meniuButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, meniuButton.getFont());
+        if (meniuButtonFont != null) meniuButton.setFont(meniuButtonFont);
+        meniuButton.setText("Meniu");
+        panel1.add(meniuButton, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
     }
 }

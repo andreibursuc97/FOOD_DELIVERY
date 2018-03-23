@@ -18,9 +18,9 @@ public class ListaProduseAdmin extends JFrame {
     private JButton adaugaProdusButton;
     private JTextField idField;
     private JButton modificaProdusButton;
+    private JButton meniuButton;
 
     private MyModel model;
-    private String[] selectedData;
     private ListSelectionModel listSelectionModel;
 
     public ListaProduseAdmin() {
@@ -32,10 +32,10 @@ public class ListaProduseAdmin extends JFrame {
         listSelectionModel.addListSelectionListener(new SharedListSelectionHandler());
         table1.setSelectionModel(listSelectionModel);
         $$$setupUI$$$();
-        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 
-        this.setLocationRelativeTo(null);
+        this.setLocation(650, 300);
         this.setContentPane(panel1);
         this.setSize(600, 400);
         //adaugaProdusButton.addActionListener(new ButonAdaugaInCos());
@@ -102,6 +102,10 @@ public class ListaProduseAdmin extends JFrame {
         modificaProdusButton.addActionListener(e);
     }
 
+    public void setMeniuButton(ActionListener e) {
+        meniuButton.addActionListener(e);
+    }
+
     /**
      * @noinspection ALL
      */
@@ -164,6 +168,12 @@ public class ListaProduseAdmin extends JFrame {
         if (modificaProdusButtonFont != null) modificaProdusButton.setFont(modificaProdusButtonFont);
         modificaProdusButton.setText("Modifica produs");
         panel3.add(modificaProdusButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
+        meniuButton = new JButton();
+        meniuButton.setBackground(new Color(-11225979));
+        Font meniuButtonFont = this.$$$getFont$$$("Comic Sans MS", -1, 14, meniuButton.getFont());
+        if (meniuButtonFont != null) meniuButton.setFont(meniuButtonFont);
+        meniuButton.setText("Meniu");
+        panel1.add(meniuButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(30, 15), new Dimension(200, 30), 0, false));
     }
 
     class SharedListSelectionHandler implements ListSelectionListener {

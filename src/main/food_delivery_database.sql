@@ -10,7 +10,7 @@ use food_delivery;
 CREATE TABLE IF NOT EXISTS Admin
 (id int unique auto_increment primary key,
 username char(20),
-parola char(20),
+parola char(64),
 logat boolean
 );
 
@@ -22,7 +22,7 @@ nume char(20),
 adresa char(100),
 email char(40),
 varsta int,
-parola char(20),
+parola BINARY(32),
 logat boolean,
 loial boolean
 );
@@ -60,21 +60,23 @@ foreign key (cos_id) references cos(id),
 FOREIGN KEY (produs_id) REFERENCES produs(id));
 
 
-insert into clienti values
-(1,"andreibursuc","Bursuc Andrei Ioan","Neamt,Rediu, str. Polobocului, nr. 23A","andrei_bursuc2002@yaho.com",22,"paswd",false,false);
+#insert into clienti values
+#(1,"andreibursuc","Bursuc Andrei Ioan","Neamt,Rediu, str. Polobocului, nr. 23A","andrei_bursuc2002@yaho.com",22,"paswd",false,false);
 insert into produs values
 (1,"Pizza Capriciosa",3,20);
 
-insert into produs(descriere,cantitate,pret) values
-("Reducere 5%",1,0);
+#insert into produs(descriere,cantitate,pret) values
+#("Reducere 5%",1,0);
 
 insert into admin values
-(1,"Admin","1234",false);
-
+(1,"Admin", SHA2('1234',256),false);
+delete from admin where id=1;
 update produs set cantitate=6 where descriere="Pizza Capriciosa";
 update admin set logat=false where id=1;
 delete from cos where id=3;
+SELECT SHA2('1234',256);
 
+select parola from admin where id=1;
 
 select id,username,nume,adresa,email,varsta,loial from clienti;
 update clienti set logat=false where id=2;

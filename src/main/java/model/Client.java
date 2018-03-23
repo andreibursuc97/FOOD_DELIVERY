@@ -41,6 +41,17 @@ public class Client {
         this.loial=false;
     }
 
+    public Client(int id,String username,String nume, String adresa, String email, int varsta) {
+        this.id=id;
+        this.username=username;
+        this.nume = nume;
+        this.adresa = adresa;
+        this.email = email;
+        this.varsta = varsta;
+        this.logat=false;
+        this.loial=false;
+    }
+
     public Client(int id,String username, String nume, String adresa, String email, int varsta,String parola) {
         this.id = id;
         this.username=username;
@@ -61,7 +72,7 @@ public class Client {
         this.varsta=18;
     }
 
-    public Client(int id,String username, String nume, String adresa, String email, int varsta, String parola, boolean loial) {
+    public Client(int id,String username, String nume, String adresa, String email, int varsta, boolean loial) {
         this.id=id;
         this.username = username;
         this.nume = nume;
